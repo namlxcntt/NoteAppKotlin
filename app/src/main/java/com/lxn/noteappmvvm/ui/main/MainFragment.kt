@@ -1,5 +1,6 @@
 package com.lxn.noteappmvvm.ui.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
 import android.widget.EditText
@@ -16,6 +17,7 @@ import com.lxn.noteapp.adapter.NoteAdapter
 import com.lxn.noteapp.model.Note
 import com.lxn.noteappmvvm.MainActivity
 import com.lxn.noteappmvvm.R
+import com.lxn.noteappmvvm.base.BaseFragment
 import com.lxn.noteappmvvm.ui.detailnote.DetailNoteFragment
 import io.realm.Realm
 import io.realm.RealmResults
@@ -24,7 +26,7 @@ import io.realm.RealmResults
 /**
  * A simple [Fragment] subclass.
  */
-class MainFragment : Fragment(), NoteAdapter.OnItemClickNote, MainActivity.ChangeLayoutManager {
+class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.ChangeLayoutManager {
     lateinit var addNotes: FloatingActionButton
     lateinit var recyclerView: RecyclerView
     private lateinit var realm: Realm
@@ -39,21 +41,14 @@ class MainFragment : Fragment(), NoteAdapter.OnItemClickNote, MainActivity.Chang
     private var mTextSearch = ""
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-
-        return inflater.inflate(R.layout.fragment_main, container, false)
+    override fun getViewResource(): Int {
+        return R.layout.fragment_main
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        addNotes = view.findViewById(R.id.addNotes)
-        recyclerView = view.findViewById(R.id.recycleview)
+    override fun setUp() {
+        addNotes = requireView().findViewById(R.id.addNotes)
+        recyclerView = requireView().findViewById(R.id.recycleview_main)
         realm = Realm.getDefaultInstance()
-        recyclerView = view.findViewById(R.id.recycleview)
         (activity as AppCompatActivity?)!!.supportActionBar!!.show()
         noteAdapter = NoteAdapter(activity, this)
         (activity as MainActivity?)?.setOnHeadlineSelectedListener(this)
@@ -77,8 +72,11 @@ class MainFragment : Fragment(), NoteAdapter.OnItemClickNote, MainActivity.Chang
             return@setOnLongClickListener true
         }
 
-
     }
+
+    override fun setUpObservable() {
+    }
+
 
     private fun getAllTodo() {
         notesList = ArrayList()
