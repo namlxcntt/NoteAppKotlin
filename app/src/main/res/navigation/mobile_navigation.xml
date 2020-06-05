@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation">
+    <fragment
+        android:id="@+id/detailNoteFragment"
+        android:name="com.lxn.noteappmvvm.ui.detailnote.DetailNoteFragment"
+        android:label="fragment_detail_note"
+        tools:layout="@layout/fragment_detail_note" />
+    <fragment
+        android:id="@+id/addNoteFragment2"
+        android:name="com.lxn.noteappmvvm.ui.addnote.AddNoteFragment"
+        tools:layout="@layout/fragment_add_note"
+        android:label="AddNoteFragment" />
+    <fragment
+        android:id="@+id/mainFragment"
+        tools:layout="@layout/fragment_main"
+        android:name="com.lxn.noteappmvvm.ui.main.MainFragment"
+        android:label="MainFragment" />
+</navigation>
