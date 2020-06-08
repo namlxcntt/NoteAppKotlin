@@ -4,10 +4,16 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -27,20 +33,16 @@ import io.realm.RealmResults
  * A simple [Fragment] subclass.
  */
 class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.ChangeLayoutManager {
-    lateinit var addNotes: FloatingActionButton
+    lateinit var addNotes: ImageView
     lateinit var recyclerView: RecyclerView
     private lateinit var realm: Realm
     private lateinit var noteAdapter: NoteAdapter
     private var notesList = ArrayList<Note>()
-    val PREFS_FILENAME = "note-App"
-    private var actionMode: ActionMode? = null
-    private var tvCancelSearch: TextView? = null
-    private var tvClearSearch: TextView? = null
     var mType = 1
     private var edtSearch: EditText? = null
     private var mTextSearch = ""
 
-
+    private lateinit var navController: NavController
     override fun getViewResource(): Int {
         return R.layout.fragment_main
     }
@@ -49,19 +51,13 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.C
         addNotes = requireView().findViewById(R.id.addNotes)
         recyclerView = requireView().findViewById(R.id.recycleview_main)
         realm = Realm.getDefaultInstance()
-        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
         noteAdapter = NoteAdapter(activity, this)
         (activity as MainActivity?)?.setOnHeadlineSelectedListener(this)
-
-
+        navController = Navigation.findNavController(requireView())
         recyclerView.layoutManager =
             StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         addNotes.setOnClickListener {
-//            fragmentManager!!.beginTransaction()
-//                .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-//                .replace(R.id.frame_layout, AddNoteFragment())
-//                .addToBackStack(null)
-//                .commit()
+            navController!!.navigate(R.id.action_nav_main_to_nav_addnote)
         }
         getAllTodo()
         addNotes.setOnLongClickListener {
@@ -72,12 +68,8 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.C
             return@setOnLongClickListener true
         }
 
+
     }
-
-    override fun setUpObservable() {
-    }
-
-
     private fun getAllTodo() {
         notesList = ArrayList()
         val results: RealmResults<Note> = realm.where<Note>(
@@ -89,6 +81,7 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.C
 
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
         realm.close()
@@ -98,13 +91,7 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.C
     override fun oItemClickNote(note: Note) {
         var bundle = Bundle()
         bundle.putParcelable("Key", note)
-        var detailNoteFragment: DetailNoteFragment = DetailNoteFragment()
-        detailNoteFragment.arguments = bundle
-        requireActivity().supportFragmentManager.beginTransaction()
-            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-            .replace(android.R.id.content, detailNoteFragment)
-            .addToBackStack(null)
-            .commit()
+        navController!!.navigate(R.id.action_nav_main_to_nav_detailnote, bundle)
 
     }
 

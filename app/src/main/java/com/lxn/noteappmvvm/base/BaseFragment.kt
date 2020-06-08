@@ -21,14 +21,13 @@ abstract class BaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUp()
-        setUpObservable()
 
     }
 
 
     abstract fun getViewResource(): Int
     abstract fun setUp()
-    abstract fun setUpObservable()
+
 
 
 }

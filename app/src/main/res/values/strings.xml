@@ -13,7 +13,8 @@
     <string name="text_home">Notes List</string>
     <string name="text_account">Account</string>
     <string name="text_logout">Log out</string>
-    <string name="text_language">Languager</string>
+    <string name="text_search">Search</string>
+    <string name="text_settings">Setting</string>
 
 
     <string name="open">open</string>

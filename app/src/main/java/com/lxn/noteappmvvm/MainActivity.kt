@@ -2,6 +2,9 @@ package com.lxn.noteappmvvm
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -16,52 +19,79 @@ import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.ui.NavigationUI.navigateUp
+import kotlinx.android.synthetic.main.app_bar_main.*
+import me.ibrahimsn.lib.OnItemSelectedListener
+import me.ibrahimsn.lib.SmoothBottomBar
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
+    //    private lateinit var appBarConfiguration: AppBarConfiguration\
+    public lateinit var bottomBar: SmoothBottomBar
 
     lateinit var callback: ChangeLayoutManager
     lateinit var navController: NavController
-    lateinit var drawerLayout: DrawerLayout
 
     public fun setOnHeadlineSelectedListener(callback: ChangeLayoutManager) {
         this.callback = callback
+    }
+
+    override fun onResume() {
+        bottomBar.visibility = View.VISIBLE
+        super.onResume()
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
+        bottomBar = findViewById(R.id.bottomBar)
 
-
-        drawerLayout = findViewById(R.id.drawer_layout)
-
-        val navView: NavigationView = findViewById(R.id.nav_view)
         navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.ic_main,
-                R.id.ic_language
-            ), drawerLayout
-        )
-        setupActionBarWithNavController(navController, drawerLayout)
-        navView.setupWithNavController(navController)
+        bottomBar.onItemSelected = {
+            if (it == 0) {
+                navController.navigate(R.id.nav_main)
+            } else if (it == 1) {
+                navController.navigate(R.id.nav_search)
+            } else if (it == 2) {
+                navController.navigate(R.id.nav_setting)
+            }
+        }
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.activity_main_drawer, menu)
+        bottomBar.setupWithNavController(menu!!, navController)
         return true
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navigateUp(navController, drawerLayout)
+        navController.navigateUp()
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+
+        return when (item.itemId) {
+            R.id.ic_main -> {
+                Toast.makeText(this, "Click click", Toast.LENGTH_SHORT).show()
+                navController.navigate(R.id.nav_main, null)
+                true
+            }
+            R.id.ic_search -> {
+                Toast.makeText(this, "Click click", Toast.LENGTH_SHORT).show()
+
+                true
+            }
+            R.id.ic_settings -> {
+                Toast.makeText(this, "Click click", Toast.LENGTH_SHORT).show()
+
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
     }
 
 

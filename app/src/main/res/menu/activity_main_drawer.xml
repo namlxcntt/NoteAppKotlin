@@ -8,10 +8,15 @@
         android:title="@string/text_home" />
 
     <item
-        android:id="@+id/ic_language"
+        android:id="@+id/ic_search"
         android:checkable="true"
-        android:icon="@drawable/ic_language"
-        android:title="@string/text_language" />
+        android:icon="@drawable/ic_search_24"
+        android:title="@string/text_search" />
+    <item
+        android:id="@+id/ic_settings"
+        android:checkable="true"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/text_settings" />
 
 
 </menu>

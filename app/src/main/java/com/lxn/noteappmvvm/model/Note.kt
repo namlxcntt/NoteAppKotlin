@@ -14,7 +14,8 @@ open class Note(
     var title: String? = null,
     var descripstion: String? = null,
     var date: String? = null,
-    var complete: Boolean = false
+    var complete: Boolean = false,
+    var color: Int? = null
 ) : RealmObject(), Parcelable {
 
 }

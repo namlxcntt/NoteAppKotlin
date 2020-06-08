@@ -1,7 +1,14 @@
 package com.lxn.noteapp.`interface`
 
 import com.lxn.noteapp.model.Note
+import io.reactivex.Flowable
+import io.reactivex.Observable
+import io.reactivex.ObservableOnSubscribe
+import io.reactivex.Single
 import io.realm.Realm
+import io.realm.RealmResults
+import io.realm.kotlin.delete
+import kotlinx.coroutines.flow.callbackFlow
 import java.lang.Exception
 
 class NoteModel : NoteInterface {
@@ -42,8 +49,23 @@ class NoteModel : NoteInterface {
         }
     }
 
-    override fun updateNote(realm: Realm, note: Note): Boolean {
-        TODO("Not yet implemented")
+    override fun deleteAllNote(realm: Realm): Single<Unit> {
+        var check = realm.delete<Note>()
+        return check?.let {
+            Single.just(check)
+        } ?: Single.error(NoSuchElementException())
+    }
 
+    override fun getAllNote(realm: Realm): Flowable<RealmResults<Note>> {
+        return realm.where<Note>(
+            Note::class.java
+        ).findAllAsync().asFlowable()
+    }
+
+    override fun updateNote(realm: Realm, note: Note): Boolean {
+        realm.beginTransaction()
+        realm.insertOrUpdate(note)
+        realm.commitTransaction()
+        return true
     }
 }

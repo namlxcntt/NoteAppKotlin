@@ -1,11 +1,15 @@
 package com.lxn.noteapp.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Layout
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.lxn.noteapp.model.Note
 import com.lxn.noteappmvvm.R
@@ -45,6 +49,7 @@ class NoteAdapter(
 
     fun setList(list: RealmResults<Note>) {
         noteList = list
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -88,12 +93,29 @@ class NoteAdapter(
         var tv_title = itemView.findViewById<TextView>(R.id.stag_Title)
         var desc = itemView.findViewById<TextView>(R.id.stag_desc)
         var id = itemView.findViewById<TextView>(R.id.stag_id)
+        var color_bg = itemView.findViewById<ImageView>(R.id.color_bg)
 
+        @SuppressLint("ResourceAsColor")
         fun onBind(note: Note, action: OnItemClickNote) {
             tv_title.text = note.title
-
             desc.text = note.descripstion
             id.text = note.id.toString()
+            Log.d("xcxxx", "acb + ${note.color}")
+            if (note.color == 1) {
+                color_bg.setImageResource(R.color.color_circle1)
+            }
+            if (note.color == 2) {
+                color_bg.setImageResource(R.color.color_circle2)
+            }
+            if (note.color == 3) {
+                color_bg.setImageResource(R.color.color_circle3)
+            }
+            if (note.color == 4) {
+                color_bg.setImageResource(R.color.color_circle4)
+            }
+            if (note.color == 5) {
+                color_bg.setImageResource(R.color.color_circle5)
+            }
             itemView.setOnClickListener {
                 action.oItemClickNote(note)
             }
