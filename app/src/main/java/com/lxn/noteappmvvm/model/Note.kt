@@ -4,9 +4,11 @@ import android.os.Parcelable
 import io.realm.Realm
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
+import io.realm.annotations.RealmClass
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+@RealmClass
 open class Note(
 
     @PrimaryKey

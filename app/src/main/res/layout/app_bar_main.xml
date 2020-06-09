@@ -19,14 +19,17 @@
         app:layout_constraintTop_toBottomOf="@id/bottomBar"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/mobile_navigation" />
-    <me.ibrahimsn.lib.SmoothBottomBar
-        android:id="@+id/bottomBar"
-        android:layout_width="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="bottom"
-        app:backgroundColor="@color/colorPrimary"
-        app:menu="@menu/activity_main_drawer"/>
+        <me.ibrahimsn.lib.SmoothBottomBar
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="bottom"
+            app:itemFontFamily="@font/futurabook"
+            app:backgroundColor="@color/color_violet_dark2"
+            app:menu="@menu/activity_main_drawer"/>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

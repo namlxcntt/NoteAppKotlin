@@ -9,42 +9,51 @@
         android:id="@+id/nav_main"
         android:name="com.lxn.noteappmvvm.ui.main.MainFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_nav_main_to_nav_addnote"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/nav_addnote"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
-            app:destination="@id/nav_addnote" />
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_nav_main_to_nav_detailnote"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/nav_detailnote"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
-            app:destination="@id/nav_detailnote" />
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_addnote"
         android:name="com.lxn.noteappmvvm.ui.addnote.AddNoteFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_add_note" >
+        tools:layout="@layout/fragment_add_note">
         <action
             android:id="@+id/action_nav_addnote_to_nav_main"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/nav_main"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
-            app:destination="@id/nav_main" />
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_detailnote"
         android:name="com.lxn.noteappmvvm.ui.detailnote.DetailNoteFragment"
         android:label="detailnote"
-        tools:layout="@layout/fragment_detail_note" />
+        tools:layout="@layout/fragment_detail_note">
+        <action
+            android:id="@+id/action_nav_detailnote_to_nav_main"
+            app:destination="@id/nav_main"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
+    </fragment>
     <fragment
         android:id="@+id/nav_setting"
         android:name="com.lxn.noteappmvvm.ui.settings.SettingFragment"

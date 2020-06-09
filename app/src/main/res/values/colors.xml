@@ -6,7 +6,10 @@
 
 
     <color name="color_green">#377DFF</color>
-    <color name="color_violet_dark">#3D3E59</color>
+    <color name="color_violet_dark">#333D3E59</color>
+    <color name="color_violet_dark2">#B33D3E59</color>
+    <color name="color_violet_dark_shadow">#E63D3E59</color>
+
     <color name="color_white">#FFFFFF</color>
 
     <color name="color_circle1">#F1D07E</color>
@@ -14,5 +17,6 @@
     <color name="color_circle3">#F46666</color>
     <color name="color_circle4">#88EF8C</color>
     <color name="color_circle5">#DD7FED</color>
+
 
 </resources>

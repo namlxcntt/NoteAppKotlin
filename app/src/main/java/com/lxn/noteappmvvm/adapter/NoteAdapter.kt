@@ -4,21 +4,26 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Layout
 import android.util.Log
+import android.util.LogPrinter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.lxn.noteapp.model.Note
 import com.lxn.noteappmvvm.R
+import com.lxn.noteappmvvm.ui.main.DialogDelete
 import io.realm.RealmResults
 
 
 class NoteAdapter(
     val context: Context?,
-    private val onItemClick: OnItemClickNote
+    val onItemClick: OnItemClickNote
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var noteList: RealmResults<Note>
@@ -88,7 +93,8 @@ class NoteAdapter(
 
     }
 
-    class ViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView),
+        DialogDelete.CallbackDelete {
 
         var tv_title = itemView.findViewById<TextView>(R.id.stag_Title)
         var desc = itemView.findViewById<TextView>(R.id.stag_desc)
@@ -119,14 +125,23 @@ class NoteAdapter(
             itemView.setOnClickListener {
                 action.oItemClickNote(note)
             }
-
-
+            itemView.setOnLongClickListener(View.OnLongClickListener {
+                var dialogDelete = DialogDelete.newInstance(note,this)
+                var activity: FragmentActivity = it.context as FragmentActivity
+                var fm: FragmentManager = activity.supportFragmentManager
+                dialogDelete.show(fm, "show")
+                return@OnLongClickListener true
+            })
         }
 
+        override fun callback() {
+            onItemClick.callBackDelete()
+        }
     }
 
     interface OnItemClickNote {
         fun oItemClickNote(note: Note)
+        fun callBackDelete()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

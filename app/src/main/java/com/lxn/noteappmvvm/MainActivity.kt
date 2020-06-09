@@ -1,9 +1,11 @@
 package com.lxn.noteappmvvm
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -56,6 +58,9 @@ class MainActivity : AppCompatActivity() {
                 navController.navigate(R.id.nav_setting)
             }
         }
+
+        val inputManager: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.SHOW_FORCED) // It can be done by show_forced too
 
     }
 

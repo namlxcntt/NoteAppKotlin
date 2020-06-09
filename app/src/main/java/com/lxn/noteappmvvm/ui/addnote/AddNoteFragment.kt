@@ -1,6 +1,7 @@
 package com.lxn.noteappmvvm.ui.addnote
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -58,8 +59,13 @@ class AddNoteFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
+    override fun onAttach(context: Context) {
+        (activity as MainActivity)!!.bottomBar.visibility = View.GONE
+        super.onAttach(context)
+    }
 
     private fun initView(view: View) {
+        (activity as MainActivity)!!.bottomBar.visibility = View.INVISIBLE
         titleET = view.findViewById(R.id.edt_title)
         descET = view.findViewById(R.id.edt_description)
         saveBtn = view.findViewById(R.id.saveBtn)
@@ -86,12 +92,11 @@ class AddNoteFragment : BaseFragment(), View.OnClickListener {
 
             }
         }
-        Toast.makeText(requireContext(), " abc + $colorNote", Toast.LENGTH_SHORT).show()
 
     }
 
     override fun onDetach() {
-        (activity as MainActivity)!!.bottomBar.visibility = View.VISIBLE
+//        (activity as MainActivity)!!.bottomBar.visibility = View.VISIBLE
         super.onDetach()
 
 
@@ -127,7 +132,6 @@ class AddNoteFragment : BaseFragment(), View.OnClickListener {
                 helper.addNote(realm, task)
                 (activity as MainActivity)!!.bottomBar.visibility = View.VISIBLE
                 navController.navigate(R.id.action_nav_addnote_to_nav_main)
-
 
 
             }

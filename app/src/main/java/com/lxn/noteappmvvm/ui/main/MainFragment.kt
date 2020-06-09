@@ -1,6 +1,7 @@
 package com.lxn.noteappmvvm.ui.main
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.EditText
@@ -25,6 +26,8 @@ import com.lxn.noteappmvvm.MainActivity
 import com.lxn.noteappmvvm.R
 import com.lxn.noteappmvvm.base.BaseFragment
 import com.lxn.noteappmvvm.ui.detailnote.DetailNoteFragment
+import com.vicpin.krealmextensions.deleteAll
+import com.vicpin.krealmextensions.queryAll
 import io.realm.Realm
 import io.realm.RealmResults
 
@@ -39,8 +42,12 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.C
     private lateinit var noteAdapter: NoteAdapter
     private var notesList = ArrayList<Note>()
     var mType = 1
-    private var edtSearch: EditText? = null
-    private var mTextSearch = ""
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as MainActivity)!!.bottomBar.visibility = View.VISIBLE
+    }
 
     private lateinit var navController: NavController
     override fun getViewResource(): Int {
@@ -56,28 +63,26 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.C
         navController = Navigation.findNavController(requireView())
         recyclerView.layoutManager =
             StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+        recyclerView.adapter = noteAdapter
         addNotes.setOnClickListener {
             navController!!.navigate(R.id.action_nav_main_to_nav_addnote)
         }
         getAllTodo()
         addNotes.setOnLongClickListener {
-            realm.beginTransaction()
-            realm.deleteAll()
-            realm.commitTransaction()
+            deleteAll<Note>()
             getAllTodo()
             return@setOnLongClickListener true
         }
 
 
     }
+
     private fun getAllTodo() {
-        notesList = ArrayList()
         val results: RealmResults<Note> = realm.where<Note>(
             Note::class.java
         ).findAll()
         noteAdapter.setList(results)
 
-        recyclerView.adapter = noteAdapter
 
     }
 
@@ -95,6 +100,10 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.C
 
     }
 
+    override fun callBackDelete() {
+        getAllTodo()
+    }
+
     override fun changeLayout(type: Int) {
         noteAdapter.setmType(type)
         if (type == 1) {
@@ -107,85 +116,6 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.C
             noteAdapter.notifyDataSetChanged()
         }
     }
-//
-//    private val mActionmodeCallBack: ActionMode.Callback =
-//        object : ActionMode.Callback {
-//            override fun onCreateActionMode(
-//                mode: ActionMode,
-//                menu: Menu
-//            ): Boolean {
-//                (activity as MainActivity).getSupportActionBar()!!.hide()
-//                val constraintLayout = LayoutInflater
-//                    .from(activity)
-//                    .inflate(R.layout.custom_action_mode_search, null) as ConstraintLayout
-//                mode.customView = constraintLayout
-//                mode.customView = constraintLayout
-//                edtSearch =
-//                    constraintLayout.findViewById<EditText>(R.id.edtSearch) as AppCompatEditText?
-//                tvClearSearch = constraintLayout.findViewById(R.id.tvClearSearchHome)
-//              tvClearSearch.setOnClickListener {  }
-//                tvCancelSearch = constraintLayout.findViewById(R.id.tvCancelSearch)
-//                tvCancelSearch.setOnClickListener(View.OnClickListener { view: View? ->
-//                    actionMode!!.finish()
-//                    actionMode = null
-//                    tvPathMobileDevice.setVisibility(View.VISIBLE)
-//                })
-//                edtSearch.addTextChangedListener(object : TextWatcher {
-//                    override fun beforeTextChanged(
-//                        charSequence: CharSequence,
-//                        i: Int,
-//                        i1: Int,
-//                        i2: Int
-//                    ) {
-//                    }
-//
-//                    override fun onTextChanged(
-//                        charSequence: CharSequence,
-//                        i: Int,
-//                        i1: Int,
-//                        i2: Int
-//                    ) {
-//                        if ("" != edtSearch.getText().toString().trim({ it <= ' ' })) {
-//                            tvClearSearch.visibility = View.VISIBLE
-//                        } else {
-//                            tvClearSearch.visibility = View.GONE
-//                        }
-//                    }
-//
-//                    override fun afterTextChanged(editable: Editable) {
-//                        recyclerView.setVisibility(View.VISIBLE)
-//                        adapter.filterList(listFilter)
-//                        mTextSearch = editable.toString()
-//                        if (mTextSearch == "") {
-//                            return
-//                        }
-//                        filter(editable.toString())
-//                    }
-//                })
-//
-//                return true
-//            }
-//
-//            override fun onPrepareActionMode(
-//                mode: ActionMode?,
-//                menu: Menu?
-//            ): Boolean {
-//                return false
-//            }
-//
-//            override fun onActionItemClicked(
-//                mode: ActionMode?,
-//                item: MenuItem?
-//            ): Boolean {
-//                return false
-//            }
-//
-//            override fun onDestroyActionMode(mode: ActionMode?) {
-//                actionMode = null
-//                getSupportActionBar()!!.show()
-//                adapter.clearList()
-//                loadFileData()
-//            }
-//        }
+
 
 }

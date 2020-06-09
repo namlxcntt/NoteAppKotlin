@@ -11,8 +11,11 @@ class MyApplication : Application() {
         val configuration = RealmConfiguration.Builder()
             .name("Notes.db")
             .deleteRealmIfMigrationNeeded()
-            .schemaVersion(0)
+            .schemaVersion(1)
+            .deleteRealmIfMigrationNeeded()
             .build()
+
+
 
         Realm.setDefaultConfiguration(configuration)
 

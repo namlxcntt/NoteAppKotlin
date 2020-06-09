@@ -6,7 +6,6 @@
         android:checkable="true"
         android:icon="@drawable/ic_notel_list"
         android:title="@string/text_home" />
-
     <item
         android:id="@+id/ic_search"
         android:checkable="true"
