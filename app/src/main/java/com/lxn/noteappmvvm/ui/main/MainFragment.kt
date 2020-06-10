@@ -37,7 +37,7 @@ import io.realm.RealmResults
  * A simple [Fragment] subclass.
  */
 class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.ChangeLayoutManager {
-    lateinit var addNotes: ImageView
+    lateinit var addNotes: TextView
     lateinit var recyclerView: RecyclerView
     private lateinit var realm: Realm
     private lateinit var noteAdapter: NoteAdapter
@@ -48,14 +48,14 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.C
     private lateinit var constrainsTop: ConstraintLayout
 
 
-
     override fun onResume() {
         super.onResume()
         constrainsTop.visibility = View.VISIBLE
     }
+
     override fun onDetach() {
         super.onDetach()
-        constrainsTop.visibility = View.GONE
+//        constrainsTop.visibility = View.GONE
     }
 
     private lateinit var navController: NavController
@@ -96,10 +96,8 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.C
     }
 
     private fun getAllTodo() {
-        val results: RealmResults<Note> = realm.where<Note>(
-            Note::class.java
-        ).findAll()
-        noteAdapter.setList(results)
+        notesList = Note().queryAll() as ArrayList<Note>
+        noteAdapter.setList(notesList)
 
 
     }
@@ -107,7 +105,6 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.C
 
     override fun onDestroy() {
         super.onDestroy()
-        realm.close()
     }
 
 

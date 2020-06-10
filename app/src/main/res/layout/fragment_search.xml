@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/color_main_background"
     android:layout_height="match_parent"
     tools:context=".ui.search.SearchFragment">
 
@@ -61,7 +62,7 @@
         android:fontFamily="@font/futurabook"
         android:paddingStart="@dimen/_3sdp"
         android:text="Search By color"
-        android:textColor="@color/color_violet_dark_shadow"
+        android:textColor="@color/color_text"
         android:textSize="@dimen/_15ssp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/linearLayout"

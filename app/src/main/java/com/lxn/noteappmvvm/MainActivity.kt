@@ -1,6 +1,7 @@
 package com.lxn.noteappmvvm
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -10,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -23,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var callback: ChangeLayoutManager
     lateinit var navController: NavController
-
+    lateinit var appSettingPrefs: SharedPreferences
 
     public fun setOnHeadlineSelectedListener(callback: ChangeLayoutManager) {
         this.callback = callback
@@ -37,8 +39,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        appSettingPrefs = getSharedPreferences("AppSettingPrefs", 0)
         navController = findNavController(R.id.nav_host_fragment)
-
+        val isNightModeOn: Boolean = appSettingPrefs.getBoolean("NightMode", false)
+        if (isNightModeOn) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
 
     }
 
@@ -89,7 +97,6 @@ class MainActivity : AppCompatActivity() {
         }
         return super.dispatchTouchEvent(ev)
     }
-
 
 
 }

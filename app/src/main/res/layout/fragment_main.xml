@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_violet_dark"
+    android:background="@color/color_main_background"
     android:clickable="true"
     tools:context=".MainActivity">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constrain_top"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_70sdp"
+        android:layout_height="@dimen/_90sdp"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -21,12 +22,12 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/futuramedium"
-            android:text="Hey, Good \nEvening!"
-            android:textColor="@color/color_black"
-            android:textSize="@dimen/_15ssp"
+            android:text="@string/hi_main"
+            android:textColor="@color/color_text"
+            android:textSize="@dimen/_20sdp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />\
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView7"
@@ -34,17 +35,30 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/futurabook"
-            android:text="You have a 0 note"
+            android:textColor="@color/color_text"
+            android:text="You have "
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView6"
             app:layout_constraintTop_toBottomOf="@+id/textView6"
             app:layout_constraintVertical_bias="0.0" />
 
-        <ImageView
-            android:id="@+id/button_search"
+        <TextView
+            android:id="@+id/tv_number_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/futurabook"
+            android:textColor="@color/color_text"
+            android:text="0 Notes"
+            app:layout_constraintStart_toEndOf="@id/textView7"
+            app:layout_constraintTop_toTopOf="@id/textView7" />
+
+
+        <ImageView
+            android:id="@+id/button_search"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
             android:layout_marginEnd="16dp"
+            android:padding="@dimen/_2sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button_setting"
             app:layout_constraintTop_toTopOf="@+id/textView6"
@@ -53,15 +67,15 @@
 
         <ImageView
             android:id="@+id/button_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
             android:layout_marginEnd="16dp"
+            android:padding="@dimen/_2sdp"
             app:layout_constraintBottom_toBottomOf="@+id/button_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/button_search"
             app:srcCompat="@drawable/ic_baseline_settings_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -71,20 +85,30 @@
         android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/constrain_top"
-        app:layout_constraintVertical_bias="0.842" />
+        app:layout_constraintVertical_bias="0.157" />
 
-    <ImageView
+    <TextView
         android:id="@+id/addNotes"
-        android:layout_width="@dimen/_40sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_marginBottom="44dp"
-        android:src="@drawable/custom_circle_addnote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/_35sdp"
+        android:background="@drawable/custom_button_add_note"
+        android:drawableStart="@drawable/ic_add_black_24dp"
+        android:drawablePadding="@dimen/_8sdp"
+        android:gravity="center"
+        android:paddingStart="@dimen/_12sdp"
+        android:paddingTop="@dimen/_9sdp"
+        android:paddingEnd="@dimen/_16sdp"
+        android:paddingBottom="@dimen/_9sdp"
+        android:text="Add a new Note"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/recycleview_main" />
-
-
+        app:layout_constraintEnd_toEndOf="@+id/recycleview_main"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

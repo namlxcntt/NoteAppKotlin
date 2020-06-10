@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_violet_dark">
+    android:background="@color/color_main_background">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -25,8 +25,10 @@
                 android:layout_height="@dimen/_45sdp"
                 android:layout_marginStart="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_24sdp"
-                android:backgroundTint="@color/color_violet_dark2"
                 android:layout_marginEnd="@dimen/_12sdp"
+                android:backgroundTint="@color/color_text"
+                android:textColorHint="@color/color_text"
+                app:hintTextColor="@color/color_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3">
@@ -35,15 +37,14 @@
                     android:id="@+id/edt_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:backgroundTint="@color/color_text"
                     android:clickable="true"
                     android:focusableInTouchMode="true"
-                    android:textColor="@color/color_black"
-                    android:textColorHint="@color/color_black"
-                    android:backgroundTint="@color/color_violet_dark2"
                     android:fontFamily="@font/futurabook"
                     android:hint="@string/text_title"
                     android:imeOptions="actionNext"
                     android:maxLines="1"
+                    android:textColor="@color/color_text"
                     android:textSize="@dimen/_14ssp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -52,8 +53,9 @@
                 android:id="@+id/textInputLayout_description"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:backgroundTint="@color/color_violet_dark2"
                 android:layout_marginTop="32dp"
+                android:textColorHint="@color/color_text"
+                app:hintTextColor="@color/color_text"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout_title"
                 app:layout_constraintHeight_percent="0.3"
                 app:layout_constraintStart_toStartOf="@+id/textInputLayout_title"
@@ -62,14 +64,14 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_description"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/color_text"
                     android:clickable="true"
                     android:focusableInTouchMode="true"
-                    android:layout_height="match_parent"
-                    android:backgroundTint="@color/color_violet_dark2"
                     android:fontFamily="@font/futurabook"
-                    android:textColor="@color/color_black"
                     android:hint="@string/text_description"
-                    android:imeOptions="actionDone" />
+                    android:imeOptions="actionDone"
+                    android:textColor="@color/color_text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -77,10 +79,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
-                android:textColor="@color/color_black"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:fontFamily="@font/futurabook"
-                android:text="Add note"
+                android:text="@string/add_note"
+                android:textColor="@color/color_text"
                 android:textSize="@dimen/_16ssp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -95,9 +97,9 @@
                 android:layout_marginEnd="@dimen/_16sdp"
                 android:layout_marginBottom="@dimen/_60sdp"
                 android:background="@drawable/button_shape"
-                android:backgroundTint="@color/color_violet_dark2"
+                android:backgroundTint="@color/color_button"
                 android:fontFamily="@font/futurabook"
-                android:text="Save"
+                android:text="@string/save"
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayout_description"
@@ -166,8 +168,7 @@
                         app:rrb_drawable="@drawable/custom_circle_2"
                         app:rrb_drawableHeight="@dimen/_30sdp"
                         app:rrb_drawablePadding="@dimen/_4sdp"
-                        app:rrb_drawableWidth="@dimen/_30sdp"
-                         />
+                        app:rrb_drawableWidth="@dimen/_30sdp" />
 
                     <co.ceryle.radiorealbutton.RadioRealButton
                         android:id="@+id/imageView3"
@@ -209,9 +210,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_12sdp"
-                android:textColor="@color/color_black"
                 android:fontFamily="@font/futurabook"
-                android:text="Color"
+                android:text="@string/color"
+                android:textColor="@color/color_text"
                 android:textSize="@dimen/_13ssp"
                 app:layout_constraintStart_toStartOf="@+id/textInputLayout_description"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout_description" />

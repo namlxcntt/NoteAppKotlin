@@ -72,6 +72,7 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
         searchEdittext()
         tvSearchColor.setOnClickListener(this)
         btnSpeechToText.setOnClickListener(this)
+        btnBack.setOnClickListener(this)
 
         radioRealButton.setOnClickedButtonListener { button, position ->
             recycleView.visibility = View.VISIBLE
@@ -166,11 +167,10 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
                     Log.d("xxxx", e.message)
                 }
             }
-            R.id.tv_select_color -> {
+            R.id.tv_select_color ->
                 radioRealButton.visibility = View.VISIBLE
+            R.id.btn_back -> activity!!.onBackPressed()
 
-
-            }
         }
     }
 
