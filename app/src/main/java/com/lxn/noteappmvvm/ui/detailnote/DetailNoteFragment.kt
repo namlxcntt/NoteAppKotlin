@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.lxn.noteapp.`interface`.NoteModel
 import com.lxn.noteapp.model.Note
 import com.lxn.noteappmvvm.MainActivity
@@ -20,8 +21,10 @@ import com.lxn.noteappmvvm.base.BaseFragment
 import com.lxn.noteappmvvm.base.LinedEditText
 import com.vicpin.krealmextensions.save
 import io.realm.Realm
+import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_add_note.*
 import kotlinx.android.synthetic.main.fragment_detail_note.*
+import java.util.jar.Manifest
 
 
 /**
@@ -31,10 +34,7 @@ class DetailNoteFragment : BaseFragment(), View.OnClickListener {
     private lateinit var note: Note
     private lateinit var navController: NavController
     private lateinit var realm: Realm
-    private lateinit var constrainsTop: ConstraintLayout
-    private lateinit var constrainChangeText: ConstraintLayout
     private lateinit var et_description: LinedEditText
-    private lateinit var constrainDetail: ConstraintLayout
     private lateinit var collapsingToolbarLayout: CollapsingToolbarLayout
     private lateinit var toolbar: Toolbar
     private lateinit var fab: FloatingActionButton
@@ -87,17 +87,19 @@ class DetailNoteFragment : BaseFragment(), View.OnClickListener {
                 }
             }
             R.id.fab_done -> {
-                Toast.makeText(context, "click cl;ick", Toast.LENGTH_SHORT).show()
+                fabDone.visibility = View.INVISIBLE
+                fab.visibility = View.VISIBLE
                 et_description.isEnabled = false
                 Note(
-                    note.id
-                    , note.title
-                    , et_description.text.toString().trim(),
+                    note.id,
+                    note.title,
+                    et_description.text.toString().trim(),
                     note.date,
                     note.complete,
                     note.color
                 ).save()
-                navController.navigate(R.id.action_nav_detailnote_to_nav_main)
+//                navController.navigate(R.id.nav_main)
+                view?.let { Snackbar.make(it, "Note have change !! ", Snackbar.LENGTH_LONG).show() }
             }
             R.id.toolbar_detail -> activity?.onBackPressed()
 

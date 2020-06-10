@@ -21,8 +21,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:layout_width="@dimen/_25sdp"
             android:id="@+id/btn_back"
+            android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
             android:layout_gravity="start|center_vertical"
             android:layout_marginStart="@dimen/_4sdp"
@@ -31,8 +31,8 @@
             android:src="@drawable/ic_baseline_chevron_left_24" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="0dp"
             android:id="@+id/edt_search"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_4sdp"
             android:layout_weight="9"
@@ -51,16 +51,98 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_select_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:drawableEnd="@drawable/ic_color_palette"
+        android:drawablePadding="@dimen/_4sdp"
+        android:fontFamily="@font/futurabook"
+        android:paddingStart="@dimen/_3sdp"
+        android:text="Search By color"
+        android:textColor="@color/color_violet_dark_shadow"
+        android:textSize="@dimen/_15ssp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+
+    <co.ceryle.radiorealbutton.RadioRealButtonGroup
+        android:id="@+id/radioRealButtonGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@id/tv_select_color"
+        app:rrbg_animateDrawables_enter="overshoot"
+        app:rrbg_animateTexts_enter="overshoot"
+        app:rrbg_backgroundColor="@color/color_violet_dark"
+        app:rrbg_radius="10dp"
+        app:rrbg_selectorColor="@color/color_violet_dark2"
+        app:rrbg_selectorSize="@dimen/_1sdp">
+
+        <co.ceryle.radiorealbutton.RadioRealButton
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:rrb_drawable="@drawable/custom_circle_1"
+            app:rrb_drawableHeight="@dimen/_25sdp"
+            app:rrb_drawablePadding="@dimen/_20sdp"
+            app:rrb_drawableWidth="@dimen/_25sdp"
+            app:rrb_rippleColor="@color/color_circle1" />
+
+        <co.ceryle.radiorealbutton.RadioRealButton
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:rrb_drawable="@drawable/custom_circle_2"
+            app:rrb_drawableHeight="@dimen/_25sdp"
+            app:rrb_drawablePadding="@dimen/_4sdp"
+            app:rrb_drawableWidth="@dimen/_25sdp" />
+
+        <co.ceryle.radiorealbutton.RadioRealButton
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:rrb_drawable="@drawable/custom_circle_3"
+            app:rrb_drawableHeight="@dimen/_25sdp"
+            app:rrb_drawablePadding="@dimen/_4sdp"
+            app:rrb_drawableWidth="@dimen/_25sdp"
+            app:rrb_rippleColor="@color/color_circle3" />
+
+        <co.ceryle.radiorealbutton.RadioRealButton
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:rrb_drawable="@drawable/custom_circle_4"
+            app:rrb_drawableHeight="@dimen/_25sdp"
+            app:rrb_drawablePadding="@dimen/_4sdp"
+            app:rrb_drawableWidth="@dimen/_25sdp"
+            app:rrb_rippleColor="@color/color_circle4" />
+
+        <co.ceryle.radiorealbutton.RadioRealButton
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:rrb_drawable="@drawable/custom_circle_5"
+            app:rrb_drawableHeight="@dimen/_25sdp"
+            app:rrb_drawablePadding="@dimen/_4sdp"
+            app:rrb_drawableWidth="@dimen/_25sdp"
+            app:rrb_rippleColor="@color/color_circle5" />
+
+    </co.ceryle.radiorealbutton.RadioRealButtonGroup>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:visibility="invisible"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/radioRealButtonGroup" />
 
     <TextView
         android:id="@+id/textView5"
@@ -68,8 +150,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Nothing to show"
-        android:visibility="gone"
         android:textSize="@dimen/_15ssp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         tools:layout_editor_absoluteX="177dp" />

@@ -161,5 +161,4 @@ class AddNoteFragment : BaseFragment(), View.OnClickListener {
     }
 
 
-
 }

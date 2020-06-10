@@ -14,12 +14,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import co.ceryle.radiorealbutton.RadioRealButton
+import co.ceryle.radiorealbutton.RadioRealButtonGroup
 import com.lxn.noteapp.adapter.NoteAdapter
 import com.lxn.noteapp.model.Note
 import com.lxn.noteappmvvm.R
@@ -32,14 +35,15 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote {
+class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClickListener {
     private lateinit var recycleView: RecyclerView
     private lateinit var edittext: AppCompatEditText
     private lateinit var btnBack: ImageView
     private lateinit var btnSpeechToText: ImageView
     private lateinit var noteAdapter: NoteAdapter
     private lateinit var navController: NavController
-
+    private lateinit var tvSearchColor: TextView
+    private lateinit var radioRealButton: RadioRealButtonGroup
     val list: MutableList<Note> = ArrayList()
     override fun getViewResource(): Int {
         return R.layout.fragment_search
@@ -52,6 +56,8 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote {
     @SuppressLint("UseRequireInsteadOfGet")
     override fun setUp() {
         navController = Navigation.findNavController(requireView())
+        tvSearchColor = view!!.findViewById(R.id.tv_select_color)
+        radioRealButton = view!!.findViewById(R.id.radioRealButtonGroup)
 
         recycleView = view!!.findViewById(R.id.recyclerView)
         edittext = view!!.findViewById(R.id.edt_search)
@@ -64,24 +70,19 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote {
         noteAdapter.setmType(1)
 //        getAllTodo()
         searchEdittext()
-        btnSpeechToText.setOnClickListener {
-            var intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-            intent.putExtra(
-                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-            )
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Hi Speak Something")
+        tvSearchColor.setOnClickListener(this)
+        btnSpeechToText.setOnClickListener(this)
 
-            //
-            try {
-                startActivityForResult(intent, REQUEST_CODE_SPEECH)
-
-            } catch (e: Exception) {
-                Log.d("xxxx", e.message)
+        radioRealButton.setOnClickedButtonListener { button, position ->
+            recycleView.visibility = View.VISIBLE
+            when (position) {
+                0 -> filterColor(1)
+                1 -> filterColor(2)
+                2 -> filterColor(3)
+                3 -> filterColor(4)
+                4 -> filterColor(5)
             }
         }
-
 
     }
 
@@ -100,6 +101,7 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote {
     private fun searchEdittext() {
         edittext.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
+                radioRealButton.visibility = View.INVISIBLE
                 recycleView.visibility = View.VISIBLE
                 filter(s.toString())
             }
@@ -112,6 +114,16 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote {
             }
 
         })
+    }
+
+    private fun filterColor(number: Int) {
+        list.clear()
+        for (note in Note().queryAll()) {
+            if (note.color == number) {
+                list.add(note)
+            }
+            noteAdapter.setList(list)
+        }
     }
 
     private fun filter(text: String) {
@@ -133,6 +145,33 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote {
     }
 
     override fun callBackDelete() {
+    }
+
+    override fun onClick(v: View?) {
+        when (v!!.id) {
+            R.id.btn_speech_to_text -> {
+                var intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+                intent.putExtra(
+                    RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                    RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+                )
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Hi Speak Something")
+
+                //
+                try {
+                    startActivityForResult(intent, REQUEST_CODE_SPEECH)
+
+                } catch (e: Exception) {
+                    Log.d("xxxx", e.message)
+                }
+            }
+            R.id.tv_select_color -> {
+                radioRealButton.visibility = View.VISIBLE
+
+
+            }
+        }
     }
 
 
