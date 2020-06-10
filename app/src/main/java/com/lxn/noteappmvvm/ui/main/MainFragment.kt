@@ -46,7 +46,7 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.C
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (activity as MainActivity)!!.bottomBar.visibility = View.VISIBLE
+        (activity as MainActivity)!!.frameBottom.visibility = View.VISIBLE
     }
 
     private lateinit var navController: NavController
@@ -99,6 +99,7 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.C
         navController!!.navigate(R.id.action_nav_main_to_nav_detailnote, bundle)
 
     }
+
 
     override fun callBackDelete() {
         getAllTodo()

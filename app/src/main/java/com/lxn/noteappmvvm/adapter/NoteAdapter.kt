@@ -26,7 +26,7 @@ class NoteAdapter(
     val onItemClick: OnItemClickNote
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private lateinit var noteList: RealmResults<Note>
+    var noteList: MutableList<Note> = ArrayList()
     private var mType = 2
 
     companion object {
@@ -52,8 +52,13 @@ class NoteAdapter(
         return noteList.size
     }
 
-    fun setList(list: RealmResults<Note>) {
-        noteList = list
+    fun setList(list: List<Note>) {
+        noteList = list as MutableList<Note>
+        notifyDataSetChanged()
+    }
+
+    fun clearList() {
+        noteList.clear()
         notifyDataSetChanged()
     }
 
@@ -74,11 +79,13 @@ class NoteAdapter(
     }
 
     //the class is hodling the list view
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        DialogDelete.CallbackDelete {
         var tv_title = itemView.findViewById<TextView>(R.id.stag_Title)
         var desc = itemView.findViewById<TextView>(R.id.stag_desc)
         var id = itemView.findViewById<TextView>(R.id.stag_id)
+        var color_bg = itemView.findViewById<ImageView>(R.id.color_bg)
+
 
         fun onBind(note: Note, action: OnItemClickNote) {
             tv_title.text = note.title
@@ -87,7 +94,37 @@ class NoteAdapter(
             itemView.setOnClickListener {
                 action.oItemClickNote(note)
             }
+            if (note.color == 1) {
+                color_bg.setImageResource(R.color.color_circle1)
+            }
+            if (note.color == 2) {
+                color_bg.setImageResource(R.color.color_circle2)
+            }
+            if (note.color == 3) {
+                color_bg.setImageResource(R.color.color_circle3)
+            }
+            if (note.color == 4) {
+                color_bg.setImageResource(R.color.color_circle4)
+            }
+            if (note.color == 5) {
+                color_bg.setImageResource(R.color.color_circle5)
+            }
+            itemView.setOnClickListener {
+                action.oItemClickNote(note)
+            }
+            itemView.setOnLongClickListener(View.OnLongClickListener {
+                var dialogDelete = DialogDelete.newInstance(note, this)
+                var activity: FragmentActivity = it.context as FragmentActivity
+                var fm: FragmentManager = activity.supportFragmentManager
+                dialogDelete.show(fm, "show")
+                return@OnLongClickListener true
+            })
 
+
+        }
+
+        override fun callback() {
+            onItemClick.callBackDelete()
 
         }
 
@@ -126,7 +163,7 @@ class NoteAdapter(
                 action.oItemClickNote(note)
             }
             itemView.setOnLongClickListener(View.OnLongClickListener {
-                var dialogDelete = DialogDelete.newInstance(note,this)
+                var dialogDelete = DialogDelete.newInstance(note, this)
                 var activity: FragmentActivity = it.context as FragmentActivity
                 var fm: FragmentManager = activity.supportFragmentManager
                 dialogDelete.show(fm, "show")

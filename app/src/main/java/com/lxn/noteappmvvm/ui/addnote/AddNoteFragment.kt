@@ -1,13 +1,15 @@
 package com.lxn.noteappmvvm.ui.addnote
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -20,7 +22,6 @@ import com.lxn.noteappmvvm.MainActivity
 import com.lxn.noteappmvvm.R
 import com.lxn.noteappmvvm.base.BaseFragment
 import io.realm.Realm
-import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_add_note.*
 import java.util.*
 
@@ -53,19 +54,19 @@ class AddNoteFragment : BaseFragment(), View.OnClickListener {
         navController = Navigation.findNavController(view!!)
         currentTime = Calendar.getInstance().time.toString()
         realm = Realm.getDefaultInstance()
-        (activity as MainActivity)!!.bottomBar.visibility = View.GONE
+        (activity as MainActivity)!!.frameBottom.visibility = View.GONE
         view?.let {
             initView(it)
         }
+
     }
 
     override fun onAttach(context: Context) {
-        (activity as MainActivity)!!.bottomBar.visibility = View.GONE
+        (activity as MainActivity)!!.frameBottom.visibility = View.GONE
         super.onAttach(context)
     }
 
     private fun initView(view: View) {
-        (activity as MainActivity)!!.bottomBar.visibility = View.INVISIBLE
         titleET = view.findViewById(R.id.edt_title)
         descET = view.findViewById(R.id.edt_description)
         saveBtn = view.findViewById(R.id.saveBtn)
@@ -96,7 +97,7 @@ class AddNoteFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun onDetach() {
-//        (activity as MainActivity)!!.bottomBar.visibility = View.VISIBLE
+        (activity as MainActivity)!!.frameBottom.visibility = View.VISIBLE
         super.onDetach()
 
 
@@ -158,6 +159,7 @@ class AddNoteFragment : BaseFragment(), View.OnClickListener {
 
         }
     }
+
 
 
 }

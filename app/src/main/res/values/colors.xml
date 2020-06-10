@@ -6,9 +6,11 @@
 
 
     <color name="color_green">#377DFF</color>
-    <color name="color_violet_dark">#333D3E59</color>
+    <color name="color_violet_dark">#003D3E59</color>
     <color name="color_violet_dark2">#B33D3E59</color>
     <color name="color_violet_dark_shadow">#E63D3E59</color>
+
+    <color name="color_black">#B32B2828</color>
 
     <color name="color_white">#FFFFFF</color>
 

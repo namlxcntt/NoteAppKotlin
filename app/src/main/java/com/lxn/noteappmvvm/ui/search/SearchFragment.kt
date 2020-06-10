@@ -1,60 +1,139 @@
 package com.lxn.noteappmvvm.ui.search
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
+import android.media.Image
 import android.os.Bundle
+import android.speech.RecognizerIntent
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatEditText
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.lxn.noteapp.adapter.NoteAdapter
+import com.lxn.noteapp.model.Note
 import com.lxn.noteappmvvm.R
+import com.lxn.noteappmvvm.base.BaseFragment
+import com.vicpin.krealmextensions.queryAll
+import io.realm.Realm
+import io.realm.RealmResults
+import java.lang.Exception
+import java.util.*
+import kotlin.collections.ArrayList
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SearchFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SearchFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote {
+    private lateinit var recycleView: RecyclerView
+    private lateinit var edittext: AppCompatEditText
+    private lateinit var btnBack: ImageView
+    private lateinit var btnSpeechToText: ImageView
+    private lateinit var noteAdapter: NoteAdapter
+    private lateinit var navController: NavController
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false)
+    val list: MutableList<Note> = ArrayList()
+    override fun getViewResource(): Int {
+        return R.layout.fragment_search
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SearchFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SearchFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        var REQUEST_CODE_SPEECH: Int = 10
+    }
+
+    @SuppressLint("UseRequireInsteadOfGet")
+    override fun setUp() {
+        navController = Navigation.findNavController(requireView())
+
+        recycleView = view!!.findViewById(R.id.recyclerView)
+        edittext = view!!.findViewById(R.id.edt_search)
+        btnBack = view!!.findViewById(R.id.btn_back)
+        btnSpeechToText = view!!.findViewById(R.id.btn_speech_to_text)
+        noteAdapter = NoteAdapter(activity, this)
+        recycleView.layoutManager =
+            LinearLayoutManager(context!!)
+        recycleView.adapter = noteAdapter
+        noteAdapter.setmType(1)
+//        getAllTodo()
+        searchEdittext()
+        btnSpeechToText.setOnClickListener {
+            var intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            intent.putExtra(
+                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+            )
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Hi Speak Something")
+
+            //
+            try {
+                startActivityForResult(intent, REQUEST_CODE_SPEECH)
+
+            } catch (e: Exception) {
+                Log.d("xxxx", e.message)
+            }
+        }
+
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            REQUEST_CODE_SPEECH -> {
+                if (resultCode == Activity.RESULT_OK && null != data) {
+                    var result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                    edittext.setText(result.get(0).toString())
                 }
             }
+        }
     }
+
+    private fun searchEdittext() {
+        edittext.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                recycleView.visibility = View.VISIBLE
+                filter(s.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
+    }
+
+    private fun filter(text: String) {
+        list.clear()
+        for (note in Note().queryAll()) {
+            if (note.title!!.toLowerCase().contains(text.toLowerCase())) {
+                list.add(note)
+            }
+            noteAdapter.setList(list)
+        }
+
+
+    }
+
+    override fun oItemClickNote(note: Note) {
+        var bundle = Bundle()
+        bundle.putParcelable("Key", note)
+        navController!!.navigate(R.id.action_nav_search_to_nav_detailnote, bundle)
+    }
+
+    override fun callBackDelete() {
+    }
+
+
 }

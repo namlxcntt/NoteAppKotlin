@@ -4,26 +4,16 @@ import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.FrameLayout
 import android.widget.Toast
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
-import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
-import androidx.navigation.ui.NavigationUI.navigateUp
-import kotlinx.android.synthetic.main.app_bar_main.*
-import me.ibrahimsn.lib.OnItemSelectedListener
+import androidx.navigation.findNavController
 import me.ibrahimsn.lib.SmoothBottomBar
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,13 +22,14 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var callback: ChangeLayoutManager
     lateinit var navController: NavController
+    lateinit var frameBottom: FrameLayout
 
     public fun setOnHeadlineSelectedListener(callback: ChangeLayoutManager) {
         this.callback = callback
     }
 
     override fun onResume() {
-        bottomBar.visibility = View.VISIBLE
+        frameBottom.visibility = View.VISIBLE
         super.onResume()
     }
 
@@ -47,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottomBar = findViewById(R.id.bottomBar)
+        frameBottom = findViewById(R.id.frame_bottom)
 
         navController = findNavController(R.id.nav_host_fragment)
         bottomBar.onItemSelected = {
@@ -58,9 +50,6 @@ class MainActivity : AppCompatActivity() {
                 navController.navigate(R.id.nav_setting)
             }
         }
-
-        val inputManager: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputManager.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.SHOW_FORCED) // It can be done by show_forced too
 
     }
 
@@ -102,6 +91,15 @@ class MainActivity : AppCompatActivity() {
 
     interface ChangeLayoutManager {
         fun changeLayout(type: Int)
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (currentFocus != null) {
+            val imm =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
     }
 
 }

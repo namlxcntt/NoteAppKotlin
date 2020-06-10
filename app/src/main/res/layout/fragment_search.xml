@@ -1,14 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.search.SearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="@dimen/_38sdp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/custom_edittext_search"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <ImageView
+            android:layout_width="@dimen/_25sdp"
+            android:id="@+id/btn_back"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_weight="0.5"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/ic_baseline_chevron_left_24" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="0dp"
+            android:id="@+id/edt_search"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_weight="9"
+            android:background="@drawable/custom_edittext_search"
+            android:backgroundTint="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/btn_speech_to_text"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginStart="@dimen/_4sdp"
+            android:layout_weight="0.5"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/ic_baseline_mic_24" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:visibility="invisible"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Nothing to show"
+        android:visibility="gone"
+        android:textSize="@dimen/_15ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        tools:layout_editor_absoluteX="177dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

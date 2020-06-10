@@ -57,7 +57,7 @@ class DetailNoteFragment : BaseFragment(), View.OnClickListener {
         collapsingToolbarLayout = requireView().findViewById(R.id.coordinatorLayout)
         fab = requireView().findViewById(R.id.fab_change)
         fabDone = requireView().findViewById(R.id.fab_done)
-        (activity as MainActivity)!!.bottomBar.visibility = View.GONE
+        (activity as MainActivity)!!.frameBottom.visibility = View.GONE
         coordinatorLayout.title = note.title.toString().trim()
         et_description.setText(note.descripstion.toString().trim())
         tv_date.text = "Date:  ${note.date!!.substring(0, note.date!!.lastIndexOf("G"))}"
@@ -68,7 +68,7 @@ class DetailNoteFragment : BaseFragment(), View.OnClickListener {
 
 
     override fun onDetach() {
-        (activity as MainActivity)!!.bottomBar.visibility = View.VISIBLE
+        (activity as MainActivity)!!.frameBottom.visibility = View.VISIBLE
         super.onDetach()
 
     }

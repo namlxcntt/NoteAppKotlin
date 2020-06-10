@@ -52,15 +52,16 @@
             android:id="@+id/stag_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/futurabook"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:maxLength="300"
+            android:maxLength="200"
             android:padding="15dp"
             android:text="Hello all its me insane developer here. In this tutorial we gonna see Hello all its me insane developer here. In this tutorial we gonna see"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/stag_id" />
 
@@ -69,8 +70,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_12sdp"
             android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
             android:background="@android:color/transparent"
             app:cardCornerRadius="@dimen/_4sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,8 +82,7 @@
                 android:id="@+id/color_bg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimary"
-              />
+                android:background="@color/colorPrimary" />
 
 
         </androidx.cardview.widget.CardView>

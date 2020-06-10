@@ -63,5 +63,9 @@
         android:id="@+id/nav_search"
         android:name="com.lxn.noteappmvvm.ui.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_nav_search_to_nav_detailnote"
+            app:destination="@id/nav_detailnote" />
+    </fragment>
 </navigation>
