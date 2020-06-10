@@ -1,6 +1,7 @@
 package com.lxn.noteappmvvm.ui.detailnote
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
@@ -44,6 +45,11 @@ class DetailNoteFragment : BaseFragment(), View.OnClickListener {
         return R.layout.fragment_detail_note
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+    }
+
 
     @SuppressLint("ResourceAsColor")
     override fun setUp() {
@@ -57,7 +63,7 @@ class DetailNoteFragment : BaseFragment(), View.OnClickListener {
         collapsingToolbarLayout = requireView().findViewById(R.id.coordinatorLayout)
         fab = requireView().findViewById(R.id.fab_change)
         fabDone = requireView().findViewById(R.id.fab_done)
-        (activity as MainActivity)!!.frameBottom.visibility = View.GONE
+
         coordinatorLayout.title = note.title.toString().trim()
         et_description.setText(note.descripstion.toString().trim())
         tv_date.text = "Date:  ${note.date!!.substring(0, note.date!!.lastIndexOf("G"))}"
@@ -68,8 +74,9 @@ class DetailNoteFragment : BaseFragment(), View.OnClickListener {
 
 
     override fun onDetach() {
-        (activity as MainActivity)!!.frameBottom.visibility = View.VISIBLE
+
         super.onDetach()
+
 
     }
 

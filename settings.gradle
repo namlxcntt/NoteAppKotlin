@@ -1,2 +1,3 @@
+include ':SwitchButtonLib'
 include ':app'
 rootProject.name = "NoteApp"

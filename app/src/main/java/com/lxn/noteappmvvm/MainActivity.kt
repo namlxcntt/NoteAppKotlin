@@ -10,26 +10,26 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import kotlinx.android.synthetic.main.app_bar_main.*
 import me.ibrahimsn.lib.SmoothBottomBar
 
 
 class MainActivity : AppCompatActivity() {
 
     //    private lateinit var appBarConfiguration: AppBarConfiguration\
-    public lateinit var bottomBar: SmoothBottomBar
 
     lateinit var callback: ChangeLayoutManager
     lateinit var navController: NavController
-    lateinit var frameBottom: FrameLayout
+
 
     public fun setOnHeadlineSelectedListener(callback: ChangeLayoutManager) {
         this.callback = callback
     }
 
     override fun onResume() {
-        frameBottom.visibility = View.VISIBLE
         super.onResume()
     }
 
@@ -37,25 +37,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        bottomBar = findViewById(R.id.bottomBar)
-        frameBottom = findViewById(R.id.frame_bottom)
-
         navController = findNavController(R.id.nav_host_fragment)
-        bottomBar.onItemSelected = {
-            if (it == 0) {
-                navController.navigate(R.id.nav_main)
-            } else if (it == 1) {
-                navController.navigate(R.id.nav_search)
-            } else if (it == 2) {
-                navController.navigate(R.id.nav_setting)
-            }
-        }
+
 
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.activity_main_drawer, menu)
-        bottomBar.setupWithNavController(menu!!, navController)
         return true
     }
 
@@ -101,5 +89,7 @@ class MainActivity : AppCompatActivity() {
         }
         return super.dispatchTouchEvent(ev)
     }
+
+
 
 }

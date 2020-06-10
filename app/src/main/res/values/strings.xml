@@ -45,4 +45,6 @@
 
     <string name="delete_text">Are you sure delete Note ?</string>
 
+    <string name="text_guide">Click "Add a new Note" to add Note.\n\nLong Tab Item is delete Note \n\nClick Tab Item is show Detail Note \n\nSwipe to delete Note"</string>
+
 </resources>

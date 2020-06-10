@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -41,12 +42,20 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.C
     private lateinit var realm: Realm
     private lateinit var noteAdapter: NoteAdapter
     private var notesList = ArrayList<Note>()
+    private lateinit var buttonSearch: ImageView
+    private lateinit var buttonSettings: ImageView
     var mType = 1
+    private lateinit var constrainsTop: ConstraintLayout
 
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity)!!.frameBottom.visibility = View.VISIBLE
+
+    override fun onResume() {
+        super.onResume()
+        constrainsTop.visibility = View.VISIBLE
+    }
+    override fun onDetach() {
+        super.onDetach()
+        constrainsTop.visibility = View.GONE
     }
 
     private lateinit var navController: NavController
@@ -55,8 +64,11 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.C
     }
 
     override fun setUp() {
+        constrainsTop = requireView().findViewById(R.id.constrain_top)
         addNotes = requireView().findViewById(R.id.addNotes)
         recyclerView = requireView().findViewById(R.id.recycleview_main)
+        buttonSearch = requireView().findViewById(R.id.button_search)
+        buttonSettings = requireView().findViewById(R.id.button_setting)
         realm = Realm.getDefaultInstance()
         noteAdapter = NoteAdapter(activity, this)
         (activity as MainActivity?)?.setOnHeadlineSelectedListener(this)
@@ -72,6 +84,12 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, MainActivity.C
             deleteAll<Note>()
             getAllTodo()
             return@setOnLongClickListener true
+        }
+        buttonSearch.setOnClickListener {
+            navController.navigate(R.id.action_nav_main_to_nav_search)
+        }
+        buttonSettings.setOnClickListener {
+            navController.navigate(R.id.action_nav_main_to_nav_setting)
         }
 
 

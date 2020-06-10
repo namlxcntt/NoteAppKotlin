@@ -54,7 +54,6 @@ class AddNoteFragment : BaseFragment(), View.OnClickListener {
         navController = Navigation.findNavController(view!!)
         currentTime = Calendar.getInstance().time.toString()
         realm = Realm.getDefaultInstance()
-        (activity as MainActivity)!!.frameBottom.visibility = View.GONE
         view?.let {
             initView(it)
         }
@@ -62,7 +61,6 @@ class AddNoteFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun onAttach(context: Context) {
-        (activity as MainActivity)!!.frameBottom.visibility = View.GONE
         super.onAttach(context)
     }
 
@@ -97,8 +95,8 @@ class AddNoteFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun onDetach() {
-        (activity as MainActivity)!!.frameBottom.visibility = View.VISIBLE
         super.onDetach()
+
 
 
     }
@@ -131,7 +129,6 @@ class AddNoteFragment : BaseFragment(), View.OnClickListener {
                 task.complete = false;
                 task.color = colorNote
                 helper.addNote(realm, task)
-                (activity as MainActivity)!!.bottomBar.visibility = View.VISIBLE
                 navController.navigate(R.id.action_nav_addnote_to_nav_main)
 
 
