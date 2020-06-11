@@ -9,6 +9,9 @@
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/color_main_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+
 
 
     </style>
@@ -31,7 +34,7 @@
     </style>
 
     <style name="ToolBarWithNavigationBack">
-        <item name="navigationIcon">@drawable/abc_ic_ab_back_material</item>
+        <item name="navigationIcon">@drawable/ic_arrow_back_black_24dp</item>
     </style>
 
     <style name="TextAppearance" parent="TextAppearance.AppCompat" />

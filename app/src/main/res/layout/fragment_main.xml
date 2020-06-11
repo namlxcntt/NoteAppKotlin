@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/tv_hello"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -35,42 +35,45 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/futurabook"
+            android:text="@string/you_have"
             android:textColor="@color/color_text"
-            android:text="You have "
+            android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView6"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"
+            app:layout_constraintStart_toStartOf="@+id/tv_hello"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hello"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/tv_number_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
             android:fontFamily="@font/futurabook"
+            android:text=" 0 Notes"
             android:textColor="@color/color_text"
-            android:text="0 Notes"
+            android:textSize="@dimen/_14ssp"
             app:layout_constraintStart_toEndOf="@id/textView7"
             app:layout_constraintTop_toTopOf="@id/textView7" />
 
 
         <ImageView
             android:id="@+id/button_search"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginEnd="16dp"
-            android:padding="@dimen/_2sdp"
+            android:padding="@dimen/_4sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button_setting"
-            app:layout_constraintTop_toTopOf="@+id/textView6"
+            app:layout_constraintTop_toTopOf="@+id/tv_hello"
             app:layout_constraintVertical_bias="0.245"
             app:srcCompat="@drawable/ic_search_black_24dp" />
 
         <ImageView
             android:id="@+id/button_setting"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginEnd="16dp"
-            android:padding="@dimen/_2sdp"
+            android:padding="@dimen/_4sdp"
             app:layout_constraintBottom_toBottomOf="@+id/button_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/button_search"
@@ -83,6 +86,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="10dp"
+        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.473"
@@ -97,18 +101,53 @@
         android:layout_marginBottom="@dimen/_35sdp"
         android:background="@drawable/custom_button_add_note"
         android:drawableStart="@drawable/ic_add_black_24dp"
-        android:drawablePadding="@dimen/_8sdp"
+        android:drawablePadding="@dimen/_6sdp"
         android:gravity="center"
-        android:paddingStart="@dimen/_12sdp"
-        android:paddingTop="@dimen/_9sdp"
-        android:paddingEnd="@dimen/_16sdp"
-        android:paddingBottom="@dimen/_9sdp"
+        android:paddingStart="@dimen/_10sdp"
+        android:paddingTop="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_20sdp"
+        android:paddingBottom="@dimen/_8sdp"
         android:text="Add a new Note"
         android:textColor="@color/color_white"
         android:textSize="@dimen/_12ssp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/recycleview_main"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/gif_dinasour"
+        android:layout_width="@dimen/_130sdp"
+        android:layout_height="@dimen/_130sdp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="ewewe"
+        android:background="@color/color_main_background"
+        app:layout_constraintBottom_toBottomOf="@+id/recycleview_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recycleview_main"
+        app:layout_constraintVertical_bias="0.3"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="dino_dance.json"
+        app:lottie_loop="true" />
+
+    <TextView
+        android:id="@+id/tv_null_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:fontFamily="@font/futurabook"
+        android:maxLines="2"
+        android:gravity="center"
+        android:text="@string/add_text"
+        android:textColor="@color/color_text"
+        android:textSize="@dimen/_15ssp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/gif_dinasour"
+        app:layout_constraintStart_toStartOf="@+id/gif_dinasour"
+        app:layout_constraintTop_toBottomOf="@+id/gif_dinasour" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

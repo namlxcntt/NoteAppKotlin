@@ -7,7 +7,9 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     android:background="@color/color_white"
+    android:elevation="@dimen/_8sdp"
     android:orientation="vertical"
+
     app:cardCornerRadius="12dp"
     app:cardElevation="2dp">
 
@@ -55,7 +57,7 @@
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/futurabook"
-            android:maxLength="200"
+            android:maxLength="100"
             android:padding="15dp"
             android:text="Hello all its me insane developer here. In this tutorial we gonna see Hello all its me insane developer here. In this tutorial we gonna see"
             android:textColor="@android:color/black"

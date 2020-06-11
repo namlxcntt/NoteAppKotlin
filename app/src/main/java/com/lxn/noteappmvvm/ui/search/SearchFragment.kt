@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import co.ceryle.radiorealbutton.RadioRealButton
 import co.ceryle.radiorealbutton.RadioRealButtonGroup
+import com.airbnb.lottie.LottieAnimationView
 import com.lxn.noteapp.adapter.NoteAdapter
 import com.lxn.noteapp.model.Note
 import com.lxn.noteappmvvm.R
@@ -44,6 +45,8 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
     private lateinit var navController: NavController
     private lateinit var tvSearchColor: TextView
     private lateinit var radioRealButton: RadioRealButtonGroup
+    private lateinit var lottieAnimationView: LottieAnimationView
+    private lateinit var tvNull: TextView
     val list: MutableList<Note> = ArrayList()
     override fun getViewResource(): Int {
         return R.layout.fragment_search
@@ -53,27 +56,17 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
         var REQUEST_CODE_SPEECH: Int = 10
     }
 
-    @SuppressLint("UseRequireInsteadOfGet")
     override fun setUp() {
-        navController = Navigation.findNavController(requireView())
-        tvSearchColor = view!!.findViewById(R.id.tv_select_color)
-        radioRealButton = view!!.findViewById(R.id.radioRealButtonGroup)
-
-        recycleView = view!!.findViewById(R.id.recyclerView)
-        edittext = view!!.findViewById(R.id.edt_search)
-        btnBack = view!!.findViewById(R.id.btn_back)
-        btnSpeechToText = view!!.findViewById(R.id.btn_speech_to_text)
+        initView(requireView())
         noteAdapter = NoteAdapter(activity, this)
         recycleView.layoutManager =
-            LinearLayoutManager(context!!)
+            LinearLayoutManager(requireContext())
         recycleView.adapter = noteAdapter
         noteAdapter.setmType(1)
-//        getAllTodo()
         searchEdittext()
         tvSearchColor.setOnClickListener(this)
         btnSpeechToText.setOnClickListener(this)
         btnBack.setOnClickListener(this)
-
         radioRealButton.setOnClickedButtonListener { button, position ->
             recycleView.visibility = View.VISIBLE
             when (position) {
@@ -84,6 +77,20 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
                 4 -> filterColor(5)
             }
         }
+
+    }
+
+    @SuppressLint("UseRequireInsteadOfGet")
+    private fun initView(view: View) {
+        navController = Navigation.findNavController(requireView())
+        tvSearchColor = view!!.findViewById(R.id.tv_select_color)
+        radioRealButton = view!!.findViewById(R.id.radioRealButtonGroup)
+        lottieAnimationView = requireView().findViewById(R.id.gif_deadpool)
+        tvNull = requireView().findViewById(R.id.tv_null_search)
+        recycleView = view!!.findViewById(R.id.recyclerView)
+        edittext = view!!.findViewById(R.id.edt_search)
+        btnBack = view!!.findViewById(R.id.btn_back)
+        btnSpeechToText = view!!.findViewById(R.id.btn_speech_to_text)
 
     }
 
@@ -102,6 +109,8 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
     private fun searchEdittext() {
         edittext.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
+                lottieAnimationView.visibility = View.INVISIBLE
+                tvNull.visibility = View.INVISIBLE
                 radioRealButton.visibility = View.INVISIBLE
                 recycleView.visibility = View.VISIBLE
                 filter(s.toString())
@@ -124,6 +133,15 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
                 list.add(note)
             }
             noteAdapter.setList(list)
+            lottieAnimationView.visibility = View.VISIBLE
+            if (list.size == 0) {
+                lottieAnimationView.visibility = View.VISIBLE
+                tvNull.visibility = View.VISIBLE
+            }
+            else{
+                lottieAnimationView.visibility = View.INVISIBLE
+                tvNull.visibility = View.INVISIBLE
+            }
         }
     }
 
@@ -134,6 +152,15 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
                 list.add(note)
             }
             noteAdapter.setList(list)
+        }
+        lottieAnimationView.visibility = View.VISIBLE
+        if (list.size == 0) {
+            lottieAnimationView.visibility = View.VISIBLE
+            tvNull.visibility = View.VISIBLE
+        }
+        else{
+            lottieAnimationView.visibility = View.INVISIBLE
+            tvNull.visibility = View.INVISIBLE
         }
 
 
@@ -146,6 +173,10 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
     }
 
     override fun callBackDelete() {
+    }
+
+    override fun onItemNotes(notes: Int) {
+
     }
 
     override fun onClick(v: View?) {
@@ -169,7 +200,7 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
             }
             R.id.tv_select_color ->
                 radioRealButton.visibility = View.VISIBLE
-            R.id.btn_back -> activity!!.onBackPressed()
+            R.id.btn_back -> requireActivity().onBackPressed()
 
         }
     }

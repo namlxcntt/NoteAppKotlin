@@ -1,7 +1,8 @@
 package com.lxn.noteappmvvm
 
 class Const {
-    companion object {
-        private var keyType: Int = 0
+    public companion object {
+        private val keyType: Int = 0
+        private val keyBundle: String = "Key"
     }
 }

@@ -8,6 +8,7 @@ import android.util.LogPrinter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -119,6 +120,7 @@ class NoteAdapter(
                 dialogDelete.show(fm, "show")
                 return@OnLongClickListener true
             })
+            onItemClick.onItemNotes(noteList.size)
 
 
         }
@@ -137,9 +139,14 @@ class NoteAdapter(
         var desc = itemView.findViewById<TextView>(R.id.stag_desc)
         var id = itemView.findViewById<TextView>(R.id.stag_id)
         var color_bg = itemView.findViewById<ImageView>(R.id.color_bg)
+        var cardView = itemView.findViewById<CardView>(R.id.cardview_staggered)
 
         @SuppressLint("ResourceAsColor")
         fun onBind(note: Note, action: OnItemClickNote) {
+            color_bg.animation =
+                AnimationUtils.loadAnimation(itemView.context, R.anim.fade_transition_animation)
+            cardView.animation =
+                AnimationUtils.loadAnimation(itemView.context, R.anim.fade_scale_transition)
             tv_title.text = note.title
             desc.text = note.descripstion
             id.text = note.id.toString()
@@ -169,6 +176,8 @@ class NoteAdapter(
                 dialogDelete.show(fm, "show")
                 return@OnLongClickListener true
             })
+            onItemClick.onItemNotes(noteList.size)
+
         }
 
         override fun callback() {
@@ -179,6 +188,7 @@ class NoteAdapter(
     interface OnItemClickNote {
         fun oItemClickNote(note: Note)
         fun callBackDelete()
+        fun onItemNotes(notes: Int)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -192,6 +202,10 @@ class NoteAdapter(
                 viewHolder.onBind(noteList.get(position)!!, onItemClick)
             }
         }
+    }
+
+    fun getNotes() {
+
     }
 
 

@@ -52,24 +52,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:text="Dark Mode"
             android:fontFamily="@font/futuramedium"
-            android:textSize="@dimen/_14ssp"
+            android:text="Dark Mode"
             android:textColor="@color/color_text"
+            android:textSize="@dimen/_14ssp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.484" />
 
-        <com.suke.widget.SwitchButton
+        <Switch
             android:id="@+id/switch_button"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_14sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:sb_checked_color="@color/color_text" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
