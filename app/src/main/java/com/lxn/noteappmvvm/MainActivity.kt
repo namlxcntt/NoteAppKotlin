@@ -23,13 +23,8 @@ class MainActivity : AppCompatActivity() {
 
     //    private lateinit var appBarConfiguration: AppBarConfiguration\
 
-    lateinit var callback: ChangeLayoutManager
     lateinit var navController: NavController
     lateinit var appSettingPrefs: SharedPreferences
-
-    public fun setOnHeadlineSelectedListener(callback: ChangeLayoutManager) {
-        this.callback = callback
-    }
 
     override fun onResume() {
         super.onResume()
@@ -39,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         appSettingPrefs = getSharedPreferences("AppSettingPrefs", 0)
         navController = findNavController(R.id.nav_host_fragment)
         val isNightModeOn: Boolean = appSettingPrefs.getBoolean("NightMode", false)
@@ -85,9 +81,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    interface ChangeLayoutManager {
-        fun changeLayout(type: Int)
-    }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (currentFocus != null) {

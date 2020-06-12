@@ -35,7 +35,9 @@
 
     <style name="ToolBarWithNavigationBack">
         <item name="navigationIcon">@drawable/ic_arrow_back_black_24dp</item>
+        <item name="android:textColor">@color/color_text</item>
     </style>
+
 
     <style name="TextAppearance" parent="TextAppearance.AppCompat" />
 

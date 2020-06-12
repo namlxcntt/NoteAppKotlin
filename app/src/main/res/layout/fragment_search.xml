@@ -63,7 +63,7 @@
         android:paddingStart="@dimen/_3sdp"
         android:text="Search By color"
         android:textColor="@color/color_text"
-        android:textSize="@dimen/_15ssp"
+        android:textSize="@dimen/_14ssp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/linearLayout"
         app:layout_constraintTop_toBottomOf="@id/linearLayout" />
@@ -72,7 +72,7 @@
         android:id="@+id/radioRealButtonGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@id/tv_select_color"
         app:rrbg_animateDrawables_enter="overshoot"
@@ -87,9 +87,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:rrb_drawable="@drawable/custom_circle_1"
-            app:rrb_drawableHeight="@dimen/_25sdp"
-            app:rrb_drawablePadding="@dimen/_20sdp"
-            app:rrb_drawableWidth="@dimen/_25sdp"
+            app:rrb_drawableHeight="@dimen/_30sdp"
+            app:rrb_drawablePadding="@dimen/_6sdp"
+            app:rrb_drawableWidth="@dimen/_30sdp"
             app:rrb_rippleColor="@color/color_circle1" />
 
         <co.ceryle.radiorealbutton.RadioRealButton
@@ -97,18 +97,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:rrb_drawable="@drawable/custom_circle_2"
-            app:rrb_drawableHeight="@dimen/_25sdp"
-            app:rrb_drawablePadding="@dimen/_4sdp"
-            app:rrb_drawableWidth="@dimen/_25sdp" />
+            app:rrb_drawableHeight="@dimen/_30sdp"
+            app:rrb_drawablePadding="@dimen/_6sdp"
+            app:rrb_drawableWidth="@dimen/_30sdp" />
 
         <co.ceryle.radiorealbutton.RadioRealButton
             android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:rrb_drawable="@drawable/custom_circle_3"
-            app:rrb_drawableHeight="@dimen/_25sdp"
-            app:rrb_drawablePadding="@dimen/_4sdp"
-            app:rrb_drawableWidth="@dimen/_25sdp"
+            app:rrb_drawableHeight="@dimen/_30sdp"
+            app:rrb_drawablePadding="@dimen/_6sdp"
+            app:rrb_drawableWidth="@dimen/_30sdp"
             app:rrb_rippleColor="@color/color_circle3" />
 
         <co.ceryle.radiorealbutton.RadioRealButton
@@ -116,9 +116,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:rrb_drawable="@drawable/custom_circle_4"
-            app:rrb_drawableHeight="@dimen/_25sdp"
-            app:rrb_drawablePadding="@dimen/_4sdp"
-            app:rrb_drawableWidth="@dimen/_25sdp"
+            app:rrb_drawableHeight="@dimen/_30sdp"
+            app:rrb_drawablePadding="@dimen/_6sdp"
+            app:rrb_drawableWidth="@dimen/_30sdp"
             app:rrb_rippleColor="@color/color_circle4" />
 
         <co.ceryle.radiorealbutton.RadioRealButton
@@ -126,9 +126,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:rrb_drawable="@drawable/custom_circle_5"
-            app:rrb_drawableHeight="@dimen/_25sdp"
-            app:rrb_drawablePadding="@dimen/_4sdp"
-            app:rrb_drawableWidth="@dimen/_25sdp"
+            app:rrb_drawableHeight="@dimen/_30sdp"
+            app:rrb_drawablePadding="@dimen/_6sdp"
+            app:rrb_drawableWidth="@dimen/_30sdp"
             app:rrb_rippleColor="@color/color_circle5" />
 
     </co.ceryle.radiorealbutton.RadioRealButtonGroup>
@@ -148,7 +148,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioRealButtonGroup"
         app:lottie_autoPlay="true"
-        app:lottie_fileName="deadpool.json"
+        app:lottie_fileName="pumped_up.json"
         app:lottie_loop="true" />
 
     <TextView

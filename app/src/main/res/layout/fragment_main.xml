@@ -56,28 +56,28 @@
             app:layout_constraintTop_toTopOf="@id/textView7" />
 
 
-        <ImageView
+        <TextView
             android:id="@+id/button_search"
-            android:layout_width="@dimen/_35sdp"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
             android:layout_marginEnd="16dp"
-            android:padding="@dimen/_4sdp"
+            android:background="@drawable/ic_search_black_24dp"
+            android:padding="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button_setting"
             app:layout_constraintTop_toTopOf="@+id/tv_hello"
-            app:layout_constraintVertical_bias="0.245"
-            app:srcCompat="@drawable/ic_search_black_24dp" />
+            app:layout_constraintVertical_bias="0.25" />
 
-        <ImageView
+        <TextView
             android:id="@+id/button_setting"
-            android:layout_width="@dimen/_35sdp"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
             android:layout_marginEnd="16dp"
-            android:padding="@dimen/_4sdp"
+            android:padding="@dimen/_5sdp"
             app:layout_constraintBottom_toBottomOf="@+id/button_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/button_search"
-            app:srcCompat="@drawable/ic_baseline_settings_24" />
+            android:background="@drawable/ic_baseline_settings_24" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

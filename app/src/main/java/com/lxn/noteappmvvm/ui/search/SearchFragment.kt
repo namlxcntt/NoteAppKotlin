@@ -3,25 +3,18 @@ package com.lxn.noteappmvvm.ui.search
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import co.ceryle.radiorealbutton.RadioRealButton
 import co.ceryle.radiorealbutton.RadioRealButtonGroup
 import com.airbnb.lottie.LottieAnimationView
 import com.lxn.noteapp.adapter.NoteAdapter
@@ -29,8 +22,7 @@ import com.lxn.noteapp.model.Note
 import com.lxn.noteappmvvm.R
 import com.lxn.noteappmvvm.base.BaseFragment
 import com.vicpin.krealmextensions.queryAll
-import io.realm.Realm
-import io.realm.RealmResults
+import kotlinx.android.synthetic.main.fragment_search.*
 import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
@@ -43,11 +35,9 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
     private lateinit var btnSpeechToText: ImageView
     private lateinit var noteAdapter: NoteAdapter
     private lateinit var navController: NavController
-    private lateinit var tvSearchColor: TextView
     private lateinit var radioRealButton: RadioRealButtonGroup
     private lateinit var lottieAnimationView: LottieAnimationView
-    private lateinit var tvNull: TextView
-    val list: MutableList<Note> = ArrayList()
+    private val list: MutableList<Note> = ArrayList()
     override fun getViewResource(): Int {
         return R.layout.fragment_search
     }
@@ -64,7 +54,6 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
         recycleView.adapter = noteAdapter
         noteAdapter.setmType(1)
         searchEdittext()
-        tvSearchColor.setOnClickListener(this)
         btnSpeechToText.setOnClickListener(this)
         btnBack.setOnClickListener(this)
         radioRealButton.setOnClickedButtonListener { button, position ->
@@ -77,21 +66,17 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
                 4 -> filterColor(5)
             }
         }
-
     }
 
     @SuppressLint("UseRequireInsteadOfGet")
     private fun initView(view: View) {
         navController = Navigation.findNavController(requireView())
-        tvSearchColor = view!!.findViewById(R.id.tv_select_color)
         radioRealButton = view!!.findViewById(R.id.radioRealButtonGroup)
         lottieAnimationView = requireView().findViewById(R.id.gif_deadpool)
-        tvNull = requireView().findViewById(R.id.tv_null_search)
         recycleView = view!!.findViewById(R.id.recyclerView)
         edittext = view!!.findViewById(R.id.edt_search)
         btnBack = view!!.findViewById(R.id.btn_back)
         btnSpeechToText = view!!.findViewById(R.id.btn_speech_to_text)
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -110,8 +95,7 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
         edittext.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 lottieAnimationView.visibility = View.INVISIBLE
-                tvNull.visibility = View.INVISIBLE
-                radioRealButton.visibility = View.INVISIBLE
+                tv_null_search.visibility = View.INVISIBLE
                 recycleView.visibility = View.VISIBLE
                 filter(s.toString())
             }
@@ -136,11 +120,10 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
             lottieAnimationView.visibility = View.VISIBLE
             if (list.size == 0) {
                 lottieAnimationView.visibility = View.VISIBLE
-                tvNull.visibility = View.VISIBLE
-            }
-            else{
+                tv_null_search.visibility = View.VISIBLE
+            } else {
                 lottieAnimationView.visibility = View.INVISIBLE
-                tvNull.visibility = View.INVISIBLE
+                tv_null_search.visibility = View.INVISIBLE
             }
         }
     }
@@ -156,11 +139,10 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
         lottieAnimationView.visibility = View.VISIBLE
         if (list.size == 0) {
             lottieAnimationView.visibility = View.VISIBLE
-            tvNull.visibility = View.VISIBLE
-        }
-        else{
+            tv_null_search.visibility = View.VISIBLE
+        } else {
             lottieAnimationView.visibility = View.INVISIBLE
-            tvNull.visibility = View.INVISIBLE
+            tv_null_search.visibility = View.INVISIBLE
         }
 
 
@@ -189,8 +171,6 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
                 )
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
                 intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Hi Speak Something")
-
-                //
                 try {
                     startActivityForResult(intent, REQUEST_CODE_SPEECH)
 
@@ -198,10 +178,7 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
                     Log.d("xxxx", e.message)
                 }
             }
-            R.id.tv_select_color ->
-                radioRealButton.visibility = View.VISIBLE
             R.id.btn_back -> requireActivity().onBackPressed()
-
         }
     }
 

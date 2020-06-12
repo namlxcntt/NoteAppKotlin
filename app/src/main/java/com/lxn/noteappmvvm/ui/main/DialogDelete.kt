@@ -16,14 +16,16 @@ import java.util.*
 
 class DialogDelete : DialogFragment(), View.OnClickListener {
     private lateinit var note: Note
+
     companion object {
+        private val key = "Key"
         private var callBackDelete: CallbackDelete? = null
         private lateinit var dialogDelete: DialogDelete
         fun newInstance(note: Note, callBackDelete: CallbackDelete): DialogFragment {
             this.callBackDelete = callBackDelete
             dialogDelete = DialogDelete()
             var bundle = Bundle()
-            bundle.putParcelable("Key", note)
+            bundle.putParcelable(key, note)
             dialogDelete.arguments = bundle
             return dialogDelete
         }
@@ -36,7 +38,7 @@ class DialogDelete : DialogFragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         var view: View = inflater.inflate(R.layout.dialog_delete, container, false)
-        note = arguments!!.getParcelable<Note>("Key")!!
+        note = arguments!!.getParcelable<Note>(key)!!
         dialog!!.window!!.attributes.windowAnimations = R.style.DialogAnimation
         dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         return view
@@ -57,7 +59,6 @@ class DialogDelete : DialogFragment(), View.OnClickListener {
                 }
                 callBackDelete!!.callback()
                 dialog!!.dismiss()
-
 
             }
             R.id.buttonCancel -> {

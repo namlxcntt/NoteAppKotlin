@@ -80,7 +80,7 @@
                         android:textColor="@color/color_text"
                         android:textSize="@dimen/_13ssp" />
 
-                    <com.lxn.noteappmvvm.base.LinedEditText
+                    <com.lxn.noteappmvvm.customview.LinedEditText
                         android:id="@+id/et_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -47,8 +47,6 @@ class NoteAdapter(
         }
         return super.getItemViewType(position)
     }
-
-
     override fun getItemCount(): Int {
         return noteList.size
     }
@@ -58,10 +56,6 @@ class NoteAdapter(
         notifyDataSetChanged()
     }
 
-    fun clearList() {
-        noteList.clear()
-        notifyDataSetChanged()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
@@ -79,14 +73,13 @@ class NoteAdapter(
 
     }
 
-    //the class is hodling the list view
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         DialogDelete.CallbackDelete {
         var tv_title = itemView.findViewById<TextView>(R.id.stag_Title)
         var desc = itemView.findViewById<TextView>(R.id.stag_desc)
         var id = itemView.findViewById<TextView>(R.id.stag_id)
         var color_bg = itemView.findViewById<ImageView>(R.id.color_bg)
-
+        var cardView = itemView.findViewById<CardView>(R.id.cardview_LL)
 
         fun onBind(note: Note, action: OnItemClickNote) {
             tv_title.text = note.title
@@ -95,21 +88,17 @@ class NoteAdapter(
             itemView.setOnClickListener {
                 action.oItemClickNote(note)
             }
-            if (note.color == 1) {
-                color_bg.setImageResource(R.color.color_circle1)
+            when (note.color) {
+                1 -> color_bg.setImageResource(R.color.color_circle1)
+                2 -> color_bg.setImageResource(R.color.color_circle2)
+                3 -> color_bg.setImageResource(R.color.color_circle3)
+                4 -> color_bg.setImageResource(R.color.color_circle4)
+                5 -> color_bg.setImageResource(R.color.color_circle5)
             }
-            if (note.color == 2) {
-                color_bg.setImageResource(R.color.color_circle2)
-            }
-            if (note.color == 3) {
-                color_bg.setImageResource(R.color.color_circle3)
-            }
-            if (note.color == 4) {
-                color_bg.setImageResource(R.color.color_circle4)
-            }
-            if (note.color == 5) {
-                color_bg.setImageResource(R.color.color_circle5)
-            }
+            color_bg.animation =
+                AnimationUtils.loadAnimation(itemView.context, R.anim.fade_transition_animation)
+            cardView.animation =
+                AnimationUtils.loadAnimation(itemView.context, R.anim.fade_scale_transition)
             itemView.setOnClickListener {
                 action.oItemClickNote(note)
             }
@@ -124,14 +113,10 @@ class NoteAdapter(
 
 
         }
-
         override fun callback() {
             onItemClick.callBackDelete()
-
         }
-
     }
-
     inner class ViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView),
         DialogDelete.CallbackDelete {
 
@@ -141,7 +126,6 @@ class NoteAdapter(
         var color_bg = itemView.findViewById<ImageView>(R.id.color_bg)
         var cardView = itemView.findViewById<CardView>(R.id.cardview_staggered)
 
-        @SuppressLint("ResourceAsColor")
         fun onBind(note: Note, action: OnItemClickNote) {
             color_bg.animation =
                 AnimationUtils.loadAnimation(itemView.context, R.anim.fade_transition_animation)
@@ -150,21 +134,12 @@ class NoteAdapter(
             tv_title.text = note.title
             desc.text = note.descripstion
             id.text = note.id.toString()
-            Log.d("xcxxx", "acb + ${note.color}")
-            if (note.color == 1) {
-                color_bg.setImageResource(R.color.color_circle1)
-            }
-            if (note.color == 2) {
-                color_bg.setImageResource(R.color.color_circle2)
-            }
-            if (note.color == 3) {
-                color_bg.setImageResource(R.color.color_circle3)
-            }
-            if (note.color == 4) {
-                color_bg.setImageResource(R.color.color_circle4)
-            }
-            if (note.color == 5) {
-                color_bg.setImageResource(R.color.color_circle5)
+            when (note.color) {
+                1 -> color_bg.setImageResource(R.color.color_circle1)
+                2 -> color_bg.setImageResource(R.color.color_circle2)
+                3 -> color_bg.setImageResource(R.color.color_circle3)
+                4 -> color_bg.setImageResource(R.color.color_circle4)
+                5 -> color_bg.setImageResource(R.color.color_circle5)
             }
             itemView.setOnClickListener {
                 action.oItemClickNote(note)
@@ -184,13 +159,11 @@ class NoteAdapter(
             onItemClick.callBackDelete()
         }
     }
-
     interface OnItemClickNote {
         fun oItemClickNote(note: Note)
         fun callBackDelete()
         fun onItemNotes(notes: Int)
     }
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (getItemViewType(position)) {
             llSize -> {
@@ -203,11 +176,6 @@ class NoteAdapter(
             }
         }
     }
-
-    fun getNotes() {
-
-    }
-
 
 }
 

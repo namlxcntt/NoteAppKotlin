@@ -27,7 +27,8 @@
     <string name="save">Save</string>
     <string name="color">Color</string>
     <string name="hi_main">Hey, Good \nEvening !</string>
-    <string name="add_text">You currently have no notes. \nDo you want to create</string>
+    <string name="add_text">You currently have no notes. \nDo you want to create ?</string>
+    <string name="display_type">List Display Type</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lorem">
@@ -50,7 +51,7 @@
 
     <string name="delete_text">Are you sure delete Note ?</string>
 
-    <string name="text_guide">Click "Add a new Note" to add Note.\n\nLong Tab Item is delete Note \n\nClick Tab Item is show Detail Note \n\nSwipe to delete Note"</string>
+    <string name="text_guide">Click "Add a new Note" to add Note.\n\nLong Tab Item is delete Note \n\nClick Tab Item is show Detail Note \n\nSwipe to delete Note" \n\nSwitch button to change Display Type </string>
     <string name="you_have">You have</string>
 
 </resources>

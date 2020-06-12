@@ -1,4 +1,4 @@
-package com.lxn.noteappmvvm.base;
+package com.lxn.noteappmvvm.customview;
 
 import android.content.Context;
 import android.graphics.Canvas;

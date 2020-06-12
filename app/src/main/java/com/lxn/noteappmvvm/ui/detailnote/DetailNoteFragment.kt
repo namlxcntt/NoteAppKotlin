@@ -3,10 +3,7 @@ package com.lxn.noteappmvvm.ui.detailnote
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -14,23 +11,16 @@ import androidx.navigation.Navigation
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import com.lxn.noteapp.`interface`.NoteModel
 import com.lxn.noteapp.model.Note
-import com.lxn.noteappmvvm.MainActivity
 import com.lxn.noteappmvvm.R
 import com.lxn.noteappmvvm.base.BaseFragment
-import com.lxn.noteappmvvm.base.LinedEditText
+import com.lxn.noteappmvvm.customview.LinedEditText
 import com.vicpin.krealmextensions.save
 import io.realm.Realm
-import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.fragment_add_note.*
 import kotlinx.android.synthetic.main.fragment_detail_note.*
-import java.util.jar.Manifest
 
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class DetailNoteFragment : BaseFragment(), View.OnClickListener {
     private lateinit var note: Note
     private lateinit var navController: NavController
@@ -40,16 +30,9 @@ class DetailNoteFragment : BaseFragment(), View.OnClickListener {
     private lateinit var toolbar: Toolbar
     private lateinit var fab: FloatingActionButton
     private lateinit var fabDone: FloatingActionButton
-
     override fun getViewResource(): Int {
         return R.layout.fragment_detail_note
     }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-    }
-
 
     @SuppressLint("ResourceAsColor")
     override fun setUp() {
@@ -71,15 +54,6 @@ class DetailNoteFragment : BaseFragment(), View.OnClickListener {
         fab.setOnClickListener(this)
         fabDone.setOnClickListener(this)
     }
-
-
-    override fun onDetach() {
-
-        super.onDetach()
-
-
-    }
-
 
     override fun onClick(v: View?) {
         when (v!!.id) {
@@ -105,7 +79,6 @@ class DetailNoteFragment : BaseFragment(), View.OnClickListener {
                     note.complete,
                     note.color
                 ).save()
-//                navController.navigate(R.id.nav_main)
                 view?.let { Snackbar.make(it, "Note have change !! ", Snackbar.LENGTH_LONG).show() }
             }
             R.id.toolbar_detail -> activity?.onBackPressed()
