@@ -56,6 +56,11 @@ class NoteAdapter(
         notifyDataSetChanged()
     }
 
+    fun removeAt(position: Int) {
+        noteList.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {

@@ -1,22 +1,21 @@
 package com.lxn.noteappmvvm.ui.main
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.*
-
+import android.view.View
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.*
 import com.lxn.noteapp.adapter.NoteAdapter
 import com.lxn.noteapp.model.Note
 import com.lxn.noteappmvvm.R
+import com.lxn.noteappmvvm.`interface`.SwipeToDeleteCallback
 import com.lxn.noteappmvvm.base.BaseFragment
+import com.vicpin.krealmextensions.delete
 import com.vicpin.krealmextensions.deleteAll
 import com.vicpin.krealmextensions.queryAll
-
 import kotlinx.android.synthetic.main.fragment_main.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -60,17 +59,29 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClickLi
         appSettingPrefs = activity!!.getSharedPreferences(sprName, 0)
         sharedPrefsEdit = appSettingPrefs.edit()
         val viewType: Boolean = appSettingPrefs.getBoolean(viewType, false)
+//        val swipeHandler = object : SwipeToDeleteCallback(context!!) {
+//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                val adapter = recycleview_main.adapter as NoteAdapter
+//                adapter.removeAt(viewHolder.adapterPosition)
+//            }
+//        }
+//        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+
         if (viewType) {
+//            itemTouchHelper.attachToRecyclerView(recycleview_main)
             noteAdapter.setmType(1)
             recycleview_main.layoutManager = LinearLayoutManager(context)
             noteAdapter.notifyDataSetChanged()
-
-        }
-       else{
+        } else {
+//            itemTouchHelper.attachToRecyclerView(null);
             recycleview_main.layoutManager =
                 StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
             noteAdapter.notifyDataSetChanged()
         }
+
+//        val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
+//        itemTouchHelper.attachToRecyclerView(recycleview_main)
+
 
     }
 
@@ -133,6 +144,7 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClickLi
         }
         return true
     }
+
     fun getGreetingMessage(): Unit {
         val c = Calendar.getInstance()
         val timeOfDay = c.get(Calendar.HOUR_OF_DAY)
@@ -144,5 +156,28 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClickLi
             else -> "Hello"
         }
     }
+
+    var simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object :
+        ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT or ItemTouchHelper.DOWN or ItemTouchHelper.UP
+        ) {
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            return false
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
+            val position = viewHolder.adapterPosition
+            var note = notesList[position]
+            notesList.remove(note)
+            Note().delete { equalTo("id", note.id) }
+            getAllTodo()
+        }
+    }
+
 
 }
