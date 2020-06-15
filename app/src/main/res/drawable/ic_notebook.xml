@@ -5,10 +5,11 @@
     android:viewportHeight="512">
   <path
       android:pathData="M256,256m-256,0a256,256 0,1 1,512 0a256,256 0,1 1,-512 0"
-      android:fillColor="@color/color_icon_app"/>
+      android:fillColor="@color/color_main_background"/>
   <path
       android:pathData="M512,256c0,-9.215 -0.498,-18.314 -1.448,-27.277L368.495,86.665H115.929v334.667l84.63,84.63C218.413,509.904 236.96,512 256,512C397.385,512 512,397.385 512,256z"
-      android:fillColor="@color/color_icon_app"/>
+      android:fillColor="@color/color_main_background"/>
+
   <path
       android:pathData="M390.333,339.665l0,7.769l13.667,31.564l13.667,-31.564l0,-7.769z"
       android:fillColor="#FFFFFF"/>

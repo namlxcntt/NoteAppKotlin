@@ -3,6 +3,7 @@ package com.lxn.noteappmvvm
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var navController: NavController
     lateinit var appSettingPrefs: SharedPreferences
+     var doubleBackToExitPressedOnce = false
 
     override fun onResume() {
         super.onResume()
@@ -79,8 +81,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
-
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (currentFocus != null) {

@@ -3,15 +3,19 @@ package com.lxn.noteappmvvm.ui.main
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.*
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.lxn.noteapp.adapter.NoteAdapter
 import com.lxn.noteapp.model.Note
 import com.lxn.noteappmvvm.R
-import com.lxn.noteappmvvm.`interface`.SwipeToDeleteCallback
 import com.lxn.noteappmvvm.base.BaseFragment
 import com.vicpin.krealmextensions.delete
 import com.vicpin.krealmextensions.deleteAll
@@ -29,6 +33,7 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClickLi
     private lateinit var navController: NavController
     lateinit var appSettingPrefs: SharedPreferences
     lateinit var sharedPrefsEdit: SharedPreferences.Editor
+    private var doubleBackToExitPressedOnce = false
 
     companion object {
         val keyBundle: String = "Key"
@@ -44,6 +49,14 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClickLi
         initView()
         getAllTodo()
         getGreetingMessage()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+//        requireView().isFocusableInTouchMode = true
+//        requireView().setOnKeyListener { v, keyCode, event ->
+//            return@setOnKeyListener false
+//        }
     }
 
     @SuppressLint("UseRequireInsteadOfGet")
@@ -78,7 +91,19 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClickLi
                 StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
             noteAdapter.notifyDataSetChanged()
         }
+        view!!.isFocusableInTouchMode = true
+        view!!.setOnKeyListener { v, keyCode, event ->
+            keyCode == KeyEvent.KEYCODE_BACK
+            if (doubleBackToExitPressedOnce) {
+                activity!!.moveTaskToBack(true);
+                activity!!.finish()
+            }
+            doubleBackToExitPressedOnce = true
+            Toast.makeText(requireContext(), "Please click BACK again to exit", Toast.LENGTH_SHORT)
+                .show()
 
+            Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
+        }
 //        val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
 //        itemTouchHelper.attachToRecyclerView(recycleview_main)
 
@@ -156,6 +181,7 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClickLi
             else -> "Hello"
         }
     }
+
 
     var simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object :
         ItemTouchHelper.SimpleCallback(

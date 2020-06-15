@@ -38,9 +38,12 @@ class SearchFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClick
     private lateinit var radioRealButton: RadioRealButtonGroup
     private lateinit var lottieAnimationView: LottieAnimationView
     private val list: MutableList<Note> = ArrayList()
+
+
     override fun getViewResource(): Int {
         return R.layout.fragment_search
     }
+
 
     companion object {
         var REQUEST_CODE_SPEECH: Int = 10
