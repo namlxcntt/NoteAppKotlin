@@ -7,6 +7,11 @@ Create Note, Search Note , using Google Voice -> text . Change ViewType
  
  
  
+ 
+ 
+ 
+ 
+ 
 ![picture](https://github.com/namlxcntt/NoteAppmvvm/blob/master/Image/Capture1.PNG)
 ![picture](https://github.com/namlxcntt/NoteAppmvvm/blob/master/Image/Capture2.PNG)
 ![picture](https://github.com/namlxcntt/NoteAppmvvm/blob/master/Image/Capture3.PNG)
