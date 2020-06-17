@@ -36,9 +36,9 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClickLi
     private var doubleBackToExitPressedOnce = false
 
     companion object {
-        val keyBundle: String = "Key"
-        private val viewType = "TypeView"
-        private val sprName: String = "AppSettingPrefs"
+        const val keyBundle: String = "Key"
+        private const val viewType = "TypeView"
+        private const val sprName: String = "AppSettingPrefs"
     }
 
     override fun getViewResource(): Int {
@@ -53,10 +53,6 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClickLi
 
     override fun onDetach() {
         super.onDetach()
-//        requireView().isFocusableInTouchMode = true
-//        requireView().setOnKeyListener { v, keyCode, event ->
-//            return@setOnKeyListener false
-//        }
     }
 
     @SuppressLint("UseRequireInsteadOfGet")
@@ -72,21 +68,12 @@ class MainFragment : BaseFragment(), NoteAdapter.OnItemClickNote, View.OnClickLi
         appSettingPrefs = activity!!.getSharedPreferences(sprName, 0)
         sharedPrefsEdit = appSettingPrefs.edit()
         val viewType: Boolean = appSettingPrefs.getBoolean(viewType, false)
-//        val swipeHandler = object : SwipeToDeleteCallback(context!!) {
-//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//                val adapter = recycleview_main.adapter as NoteAdapter
-//                adapter.removeAt(viewHolder.adapterPosition)
-//            }
-//        }
-//        val itemTouchHelper = ItemTouchHelper(swipeHandler)
 
         if (viewType) {
-//            itemTouchHelper.attachToRecyclerView(recycleview_main)
             noteAdapter.setmType(1)
             recycleview_main.layoutManager = LinearLayoutManager(context)
             noteAdapter.notifyDataSetChanged()
         } else {
-//            itemTouchHelper.attachToRecyclerView(null);
             recycleview_main.layoutManager =
                 StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
             noteAdapter.notifyDataSetChanged()
